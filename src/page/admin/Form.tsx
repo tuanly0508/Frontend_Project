@@ -11,15 +11,16 @@ interface State {
 
 export interface Props {
     onAdd:  (product: Product) => void
-    onEdit: Product 
+    // onEdit: Product 
     onName: string
+    onUpdate: Product
 }
 
 export function Form(props: Props) {
     //state
     const [state, setState] = useState<State>({
         nameButton: 'Add',nameErr: '', priceErr: '', imageErr: '',
-        data: props.onEdit
+        data: props.onUpdate
     });
 
     //validation
@@ -51,8 +52,9 @@ export function Form(props: Props) {
         e.preventDefault()
         let isValid = formValidation()
         if(isValid === true) {
+            console.log(state.data);
+            
             props.onAdd(state.data)
-            name = 'Add'
         }
         setState({...state,nameButton: name})
     }
@@ -79,7 +81,7 @@ export function Form(props: Props) {
                 </div>
 
                 <div className='form-button'>
-                    <button type='submit'>{state.nameButton}</button>
+                    <button type='submit'>Add</button>
                 </div>
             </form>
         </div>

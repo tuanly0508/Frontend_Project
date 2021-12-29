@@ -25,12 +25,17 @@ class ProductController {
             return resp.data
         })
     }
+
     //update product
-    async update(product: Product): Promise<Product> {
-        return axios.put('http://localhost:8000/update',product).then(resp => {
-            return resp.data
+    async update(product: Product): Promise<Product[]> {
+        console.log(product.name);
+        return axios.put('http://localhost:8000/update',product).then(res => {
+            console.log(res.data);
+            
+            return res.data
         })
     }
+
     //get detail
     async getDetail(idProduct: string): Promise<Product> {
         return axios.get(`http://localhost:8000/product/${idProduct}`).then(res => {

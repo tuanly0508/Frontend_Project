@@ -15,7 +15,8 @@ interface State {
     page: number,
     countPage: number,
     search: string,
-    sort: string
+    sort: string,
+    dataProductDetail: Product 
 }
 
 export function PageAdmin() {
@@ -27,7 +28,8 @@ export function PageAdmin() {
         page: 1,
         countPage: 1,
         search: '',
-        sort: ''
+        sort: '',
+        dataProductDetail: {id:"",price: 0,name:"",image:""},
     })
 
     //pagination
@@ -54,24 +56,22 @@ export function PageAdmin() {
     
     //add
     const onAdd = (dataAdd: Product) => {   
-        if (dataAdd.id === '') {
+        if (dataAdd.id === '') {           
             dataAdd.id = uuid()
             productController.add(dataAdd).then(res => {
                 setState({...state,dataProduct: res})
             })
-        }else {
-            let i = state.dataProduct.findIndex(e => e.id === dataAdd.id)
-            state.dataProduct[i] = dataAdd                       
-            let clear = {id:"",price:0,name:"",image:""}
-            setState({...state, newData: clear})
+        }else {    
+            productController.update(dataAdd).then(res => {               
+                setState({...state, dataProduct: res})
+            })
         }
+        
     }
-
+    
     //edit
     const onEdit = (data: Product) => {
-        productController.update(data).then(res => {
-            setState({...state, newData: res})
-        })                 
+        setState({...state, dataProductDetail: data})
     }
     
     //render item product
@@ -85,7 +85,8 @@ export function PageAdmin() {
         <div className='container-admin'>
             <div className='title'><p>PRODUCTS MANAGEMENT</p></div>
             <div className='content'>
-                <Form key={uuid()} onEdit={state.newData} onAdd={onAdd} onName={state.nameButton} />
+                {/* <Form key={uuid()}  onEdit={state.newData} onAdd={onAdd} onName={state.nameButton} /> */}
+                <Form key={uuid()} onUpdate={state.dataProductDetail} onAdd={onAdd} onName={state.nameButton} />
 
                 <div className='list-product'>
                     <div className='list'>

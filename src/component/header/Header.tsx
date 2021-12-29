@@ -71,14 +71,12 @@ export default function Header() {
                     </div>
                     <div className='right'>
                         <li>
-                            <Link className='link' to="/checkout/cart">
-                                <i className='icon'><FaShoppingCart/>
-                                    <div className='order-list'>
-                                        <Link className='link' to="/checkout/completed"><i><FaBoxes/></i><p>Order</p></Link>
-                                        <Link className='link' to="/checkout/cart"><i><FaCartArrowDown/></i><p>Cart</p></Link>
-                                    </div>
-                                </i>
-                            </Link>
+                            <i className='icon'><FaShoppingCart/>
+                                <div className='order-list'>
+                                    <Link className='link' to="/checkout/completed"><i><FaBoxes/></i><p>Order</p></Link>
+                                    <Link className='link' to="/checkout/cart"><i><FaCartArrowDown/></i><p>Cart</p></Link>
+                                </div>
+                            </i>
                         </li>
                         <li>
                             <Link className='link' to="">Login</Link>
