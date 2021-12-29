@@ -1,26 +1,28 @@
 import React, {useState} from 'react'
+import { FaTimes } from 'react-icons/fa';
 import { Product } from '../../model/Product'
-
 interface State {
     nameButton: string,
     nameErr: string,
     priceErr: string,
     imageErr: string,
-    data: Product
+    data: Product,
+    closeModal: boolean
 }
-
 export interface Props {
     onAdd:  (product: Product) => void
     // onEdit: Product 
     onName: string
     onUpdate: Product
+    closeModal: (close:Boolean) => void
 }
 
 export function Form(props: Props) {
     //state
     const [state, setState] = useState<State>({
         nameButton: 'Add',nameErr: '', priceErr: '', imageErr: '',
-        data: props.onUpdate
+        data: props.onUpdate,
+        closeModal: false
     });
 
     //validation
@@ -62,6 +64,7 @@ export function Form(props: Props) {
     return (
         <div className='form'>
             <form onSubmit={handleSubmit} >
+                <div className='icon-form-x'><i onClick={()=>props.closeModal(false)} ><FaTimes/></i></div>
                 <div className='input'>
                     <label className='label'>Product Name</label>
                     <input onChange={e => {setState({...state,data:({...state.data,name: String(e.target.value)})})}} value={state.data.name} name='name' type="text" placeholder='Name' />

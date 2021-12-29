@@ -7,6 +7,7 @@ import { ProductDetail } from '../list-product/ProductDetail';
 import ReactPaginate from 'react-paginate';
 import { productController } from '../../../controller/ProductController';
 import { Pagination } from '../../../model/Pagination';
+import { FaPlusCircle } from 'react-icons/fa';
 
 interface State {
     newData: Product,
@@ -16,7 +17,8 @@ interface State {
     countPage: number,
     search: string,
     sort: string,
-    dataProductDetail: Product 
+    dataProductDetail: Product,
+    openModal: Boolean
 }
 
 export function PageAdmin() {
@@ -30,6 +32,7 @@ export function PageAdmin() {
         search: '',
         sort: '',
         dataProductDetail: {id:"",price: 0,name:"",image:""},
+        openModal: false
     })
 
     //pagination
@@ -48,13 +51,13 @@ export function PageAdmin() {
     },[state.page,state.search,state.sort])
 
     //delete
-    const onDelete = (idProduct: string) => {   
+    const onDelete = (idProduct: string) => { 
         productController.delete(idProduct).then(res => {
             setState({...state,dataProduct: res})
         }) 
     } 
     
-    //add
+    //add and update
     const onAdd = (dataAdd: Product) => {   
         if (dataAdd.id === '') {           
             dataAdd.id = uuid()
@@ -66,28 +69,31 @@ export function PageAdmin() {
                 setState({...state, dataProduct: res})
             })
         }
-        
     }
+
+    //close modal
+    const closeModal = (close:Boolean) => {
+        setState({...state, openModal: close})
+    } 
     
-    //edit
-    const onEdit = (data: Product) => {
-        setState({...state, dataProductDetail: data})
+    //data edit, open modal
+    const onEdit = (data: Product,open:Boolean) => {
+        setState({...state, dataProductDetail: data,openModal: open})
     }
     
     //render item product
     const disPlayProduct = state.dataProduct.map((item,key) => {
         return (
-            <ProductDetail product={item} key={key} onEdit={onEdit} onDelete={onDelete}/>
+            <ProductDetail  product={item} key={key} onEdit={onEdit} onDelete={onDelete}/>
         )
     })
     
     return (
         <div className='container-admin'>
-            <div className='title'><p>PRODUCTS MANAGEMENT</p></div>
+            <div className='title'><p>PRODUCTS MANAGEMENT</p> <button onClick={() => {setState({...state,openModal: true})}} ><FaPlusCircle/></button></div>
+            {state.openModal && <Form key={uuid()} closeModal={closeModal} onUpdate={state.dataProductDetail} onAdd={onAdd} onName={state.nameButton} />}
             <div className='content'>
-                {/* <Form key={uuid()}  onEdit={state.newData} onAdd={onAdd} onName={state.nameButton} /> */}
-                <Form key={uuid()} onUpdate={state.dataProductDetail} onAdd={onAdd} onName={state.nameButton} />
-
+            
                 <div className='list-product'>
                     <div className='list'>
                         <div className='product'>
