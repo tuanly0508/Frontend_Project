@@ -1,0 +1,114 @@
+.container-cart {
+    width: 60%;
+    margin: auto;
+    margin-bottom: 100px;
+}
+.content-cart table {
+    width: 100%;
+}
+
+/* Cart empty */
+.container-cart .cart-empty {
+    text-align: center;
+    margin-top: 150px; 
+}
+.container-cart .cart-empty .icon-empty i{
+    font-size: 70px;
+    margin-bottom: 50px;
+    color: tomato;
+}
+.container-cart .cart-empty .title-empty p{
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(145, 145, 145);
+}
+.container-cart .cart-empty .title-empty button{
+    padding: 10px 25px 10px 25px;
+    outline: none;
+    border: 1px solid red;
+    background-color: white;
+    color: red;
+    margin-bottom: 100px;
+}
+.container-cart .cart-empty .title-empty button:hover{
+    background-color: wheat;
+    cursor: pointer;
+}
+
+/* table header */
+.content-cart .table-top thead tr{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    border: 1px solid #e6e6e6;
+    padding: 15px 0 15px 0;
+    text-align: center;
+}
+.content-cart table tr th{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* item cart */
+.table-top tbody {
+    display: block;
+}
+.table-top tbody .item{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    border: 1px solid #e6e6e6;
+    margin-top: 10px;
+}
+.table-top tbody tr .img {
+    margin: auto;
+}
+.table-top tbody tr .img img{
+    width: 70px;
+    height: 70px;
+}
+.table-top tbody .item td{
+    margin: auto;
+    font-weight: 400;
+    color: #888888;
+    font-size: 15px;
+}
+.table-top tbody .item .quantity{
+    text-align: center;
+}
+.table-top tbody .item .quantity input{
+    width: 20%;
+    padding: 5px 5px 5px 5px;
+    border: none;
+    font-size: 15px;
+    text-align: center;
+}
+.table-top tbody .item .quantity i{
+    color: red;
+}
+
+/* table tfoot */
+.table-top tfoot tr{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin-top: 20px;
+}
+.table-top tfoot tr th{
+    margin: auto;
+}
+.table-top tfoot tr th .btn{
+    padding: 10px 80px 10px 80px;
+    outline: none;
+    border: 1px solid #555555;
+    background-color: rgb(131, 1, 1);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+.table-top tfoot tr th .btn:hover{
+    background-color: rgb(189, 4, 4);
+}
+.table-top tfoot tr th p{
+    color: red;
+}

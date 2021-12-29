@@ -1,0 +1,98 @@
+.container-check-out {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 50px;
+    z-index: 999;
+}
+.container-check-out .content-check-out {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+}
+
+/* form */
+.content-check-out form .title-form-check {
+    font-size: 12px;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+    display: flex;
+}
+.content-check-out form .title-form-check-2 {
+    font-size: 12px;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+}
+.content-check-out form .title-form-check-2 h2{
+    margin-bottom: 15px;
+}
+.content-check-out form .title-form-check i{
+    margin-right: 10px;
+    margin-top: 2px;
+    font-size: 17px;
+}
+.content-check-out form .title-form-check i:hover{
+    color: red;
+    cursor: pointer;
+}
+.content-check-out form .title-form-check p {
+    margin-top: 20px;
+}
+.content-check-out form .check-box .check-box-child{
+    display: flex;
+    align-items: center;
+}
+.content-check-out form .check-box .check-box-child label{
+    margin-right: 50px;
+}
+.content-check-out form input {
+    padding: 15px 110px 15px 20px;
+    margin: 20px 10px 20px 0;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid silver;
+}
+.content-check-out form input:hover {
+    border: 1px solid #494747;
+}
+.content-check-out form input:focus {
+    border: 1px solid tomato;
+}
+
+/* info */
+.content-check-out .content-info {
+    margin: auto;
+    background-color: rgb(241, 241, 241);
+}
+.container-check-out .content-info .info-check p{
+    font-size: 16px;
+    margin: 0 0 15px 10px;
+}
+.container-check-out .content-info .info-check p span{
+    color: tomato;
+    margin: 0 5px 0 250px;
+}
+.container-check-out .content-info .info-check .your-order{
+    margin: 15px 0 15px 10px;
+}
+.container-check-out .content-info .info-check .your-order{
+    margin: 15px 0 15px 10px;
+}
+.container-check-out .content-info .info-check .tu-clothing{
+    margin: 15px 0 15px 10px;
+    color: #555;
+}
+.container-check-out .content-info .info-check .total-order-check{
+    margin-top: 15px;
+}
+/* info btn */
+.content-check-out .content-info .btn-check{
+    padding: 15px 150px 15px 150px;
+    margin-top: 20px;
+    outline: none;
+    border: 1px solid silver;
+    background-color: rgb(218, 63, 36);
+    color: white;
+}
+.content-check-out .content-info .btn-check:hover{
+    background-color: tomato;
+}

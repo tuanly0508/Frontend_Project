@@ -1,0 +1,147 @@
+.container-order {
+    margin-bottom: 50px;
+}
+.container-order .content {
+    width: 50%;
+    margin: auto;
+}
+.container-order .content .content-order-top {
+    width: 100%;
+    font-size: 14px;
+    color: tomato;
+}
+.container-order .content-body {
+    margin-top: 30px;
+}
+.container-order .content-body .table-body {
+    width: 100%;
+    background-color: rgb(243, 243, 243);
+    margin-bottom: 30px;
+}
+.container-order .content-body .table-body thead .title-header{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+}
+
+/* header left */
+.container-order .content-body .table-body thead .title-header .left{
+    display: flex;
+}
+.container-order .content-body .table-body thead .title-header .left i{
+    font-size: 20px;
+    margin: 8px 10px 0px 10px;
+}
+.container-order .content-body .table-body thead .title-header .left p{
+    color: rgb(163, 163, 163);
+    font-size: 15px;
+    margin: 8px 10px 0 0;
+}
+.container-order .content-body .table-body thead .title-header .left .btn-order{
+    background-color: white;
+    color: tomato;
+    outline: none;
+    border: 1px solid tomato;
+    padding: 8px 15px 8px 15px;
+    border-radius: 10px;
+}
+.container-order .content-body .table-body thead .title-header .left .btn-order:hover{
+    background-color: rgb(255, 177, 163);
+    cursor: pointer;
+}
+
+/* header right */
+.container-order .content-body .table-body thead .title-header .right{
+    text-align: right;
+    font-size: 14px;
+}
+.container-order .content-body .table-body thead .title-header .right p{
+    color: rgb(105, 105, 105);
+    margin-bottom: 8px;
+}
+.container-order .content-body .table-body thead .title-header .right p span{
+    color: rgb(0, 202, 0);
+}
+
+/* //body */
+.container-order tbody .img-order img {
+    width: 90px;
+    height: 90px;
+}
+.container-order tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid #e6e6e6;
+}
+.container-order tbody tr td {
+    display: flex;
+}
+.container-order tbody tr .total-order {
+    text-align: right;
+    margin: auto;
+}
+.container-order tbody tr td p{
+    font-size: 14px;
+    margin: 10px 0 0 10px;
+}
+.container-order tbody tr td .desc{
+    color: rgb(145, 144, 144)
+}
+
+/* table footer */
+.container-order tfoot tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid #e6e6e6;
+}
+.container-order tfoot tr .order-total td{
+    display: block;
+    text-align: left;
+    padding: 12px 15px 9px 15px;
+    font-size: 14px;
+    color: rgb(54, 54, 54);
+}
+.container-order tfoot tr .order-total td span{
+    color: red;
+    margin-left: 10px;
+}
+.container-order tfoot tr .order-total-2{
+    margin: auto;
+}
+.container-order tfoot tr .order-total-2 td span{
+    color: red;
+    margin-left: 10px;
+}
+
+/* order empty */
+.cart-empty {
+    text-align: center;
+    margin-top: 150px; 
+}
+.cart-empty .icon-empty i{
+    font-size: 70px;
+    margin-bottom: 50px;
+    color: tomato;
+}
+.cart-empty .title-empty-order {
+    margin-bottom: 200px;
+}
+.cart-empty .title-empty-order p{
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(145, 145, 145);
+}
+.cart-empty .title-empty-order button{
+    padding: 10px 25px 10px 25px;
+    outline: none;
+    border: 1px solid red;
+    background-color: white;
+    color: red;
+}
+.cart-empty .title-empty-order button:hover{
+    background-color: wheat;
+    cursor: pointer;
+}

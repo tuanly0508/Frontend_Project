@@ -1,0 +1,141 @@
+.container-page-shop {
+    margin-bottom: 50px;
+    margin-top: 80px;
+}
+/* pagination */
+.container-page-shop .paginationBtn{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}
+.container-page-shop .paginationBtn a{
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #555555;
+    color: #555555;
+    cursor: pointer;
+}
+.container-page-shop .paginationBtn a:hover{
+    color: red;
+    background-color: white;
+}
+.container-page-shop .paginationActive a{
+    color: red;
+    background-color: white;
+}
+
+/* content-bot */
+.container-page-shop .content-bot{
+    display: flex;
+    width: 95%;
+    margin: auto;
+}
+.container-page-shop .content-bot .product-catalo {
+    width: 15%;
+}
+
+/* catalo */
+.catalo {
+    border: 1px solid #555;
+    box-shadow: 0.1px 0.5px 0.5px 0.5px;
+    border-radius: 10px;
+}
+.catalo .catalo-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 30px 0 20px 0;
+    text-align: center;
+}
+.catalo .inputSearch {
+    position: relative;
+}
+.catalo .inputSearch .icon{
+    position: absolute;
+    right: 40px;
+    bottom: 33px;
+}
+.catalo .inputSearch input{
+    padding: 15px 20px 15px 10px;
+    margin-bottom: 20px;
+    margin-left: 33px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #555;
+}
+.catalo .inputSearch input:focus{
+    border: 1px solid red;
+}
+.catalo .catalo-title-bot {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 80px 0 20px 0;
+    text-align: center;
+}
+.catalo .catalo-port {
+    margin-left: 40px;
+}
+.catalo .catalo-port ul li {
+    margin-bottom: 30px;
+    color: #555;
+}
+.catalo .catalo-port ul li:hover {
+    color: red;
+    cursor: pointer;
+}
+.catalo .catalo-port ul li .link{
+    color: #555555;
+}
+.catalo .catalo-port ul li .link:hover{
+    color: red;
+}
+.catalo .catalo-port ul li i{
+    margin-right: 15px;
+}
+
+/* product */
+.container-page-shop .content-bot .list-product {
+    width: 85%;
+    margin: 10px;
+}
+.container-page-shop .content-bot .list-product .list{
+    margin-top: 0;
+}
+.container-page-shop .content-bot .list-product .list .product{
+    width: 100%;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail:hover img{
+    opacity: 0.2;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail {
+    position: relative;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail:hover .icon{
+    display: block;
+    transition: 1s;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail .icon{
+    color: red;
+    position: absolute;
+    display: none;
+    right: 25%;
+    top: 40%;
+    font-size: 30px;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail .icon .btn{
+    padding: 10px 20px 10px 20px;
+    margin-right: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid green;
+    background-color: wheat;
+    color: black;
+    font-weight: 500;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail .icon .btn:hover{
+    border: 1px solid red;
+    color: red;
+    cursor: pointer;
+}

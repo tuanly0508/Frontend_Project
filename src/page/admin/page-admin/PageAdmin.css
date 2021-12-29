@@ -1,0 +1,83 @@
+.container-admin .title {
+    font-size: 30px;
+    margin-left: 150px;
+    font-weight: 700;
+}
+.container-admin .content{
+    display: block;
+}
+.container-admin .form{
+    margin-top: 40px;
+    z-index: 99999;
+    margin-bottom: 50px;
+}
+.container-admin .form form{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #555555;
+    width: 70%;
+    margin: auto;
+    background-color: wheat;
+}
+.container-admin .form .label{
+    font-size: 14px;
+    color: black;
+    margin-left: 10px;
+}
+.container-admin .list-product {
+    margin-bottom: 20px;
+}
+.form input{
+    display: block;
+    padding: 15px 100px 15px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #555;
+    color: salmon;
+    font-size: 16px;
+    margin-right: 20px;
+}
+.form .labelErr {
+    color: red;
+    font-size: 12px;
+    margin-left: 10px;
+}
+.form .labelErr p {
+    margin-bottom: 20px;
+}
+.form button{
+    margin-top: 28px;
+    border-radius: 10px;
+    border: 1px solid yellowgreen;
+    padding: 15px 30px 15px 30px;
+}
+.form button:hover{
+    color: red;
+    border: 1px solid red;
+}
+
+/* pagination */
+.container-admin .paginationBtn{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.container-admin .paginationBtn a{
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #555555;
+    color: #555555;
+    cursor: pointer;
+}
+.container-admin .paginationBtn a:hover{
+    color: red;
+    background-color: white;
+}
+.container-admin .paginationActive a{
+    color: red;
+    background-color: white;
+}
