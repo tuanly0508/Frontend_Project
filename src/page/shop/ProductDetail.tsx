@@ -1,13 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Cart } from '../../model/Cart'
 import { Product } from '../../model/Product'
 
 export interface Props {
     handleClick: (products:Product) => void
     product: Product
 }
-
+//a
 export function ProductDetail(props:Props) {
 
     return (
