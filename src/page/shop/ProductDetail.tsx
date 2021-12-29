@@ -12,6 +12,7 @@ export function ProductDetail(props:Props) {
 
     return (
         <div className='product-detail'>
+            <span></span><span></span><span></span><span></span>
             <div className='container-product'>
                 <img src={props.product.image} alt="p1" />
                 <i className='icon'>

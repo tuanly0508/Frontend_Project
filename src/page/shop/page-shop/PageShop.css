@@ -112,6 +112,42 @@
 .container-page-shop .content-bot .list-product .list .product .product-detail {
     position: relative;
 }
+.container-page-shop .content-bot .list-product .list .product .product-detail span{
+    position: absolute;
+    display: block;
+    background-color: tomato;
+    transition: all 0.25s linear;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail span:nth-child(1){
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail span:nth-child(2){
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 0;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail span:nth-child(3){
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail span:nth-child(4){
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    height: 0;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail:hover span:nth-child(odd){
+    width: 100%;
+}
+.container-page-shop .content-bot .list-product .list .product .product-detail:hover span:nth-child(event){
+    height: 100%;
+}
 .container-page-shop .content-bot .list-product .list .product .product-detail:hover .icon{
     display: block;
     transition: 1s;
