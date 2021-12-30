@@ -6,7 +6,7 @@ export interface Props {
     handleClick: (products:Product) => void
     product: Product
 }
-//a
+
 export function ProductDetail(props:Props) {
 
     return (
@@ -16,11 +16,11 @@ export function ProductDetail(props:Props) {
                 <img src={props.product.image} alt="p1" />
                 <i className='icon'>
                     <button className='btn' onClick={() => props.handleClick(props.product)}  >ADD</button>
-                    <Link to={`/detail/${props.product.id}`}>
+                    <Link to={`/detail/${props.product.idProduct}`}>
                         <button className='btn' >XEM</button>
                     </Link>
                 </i>
-                <div className='name'>{props.product.name}</div>
+                <div className='name'>{props.product.nameProduct}</div>
                 <div className='price'>
                     <div className='before'>{props.product.price+"$"}</div>
                 </div>

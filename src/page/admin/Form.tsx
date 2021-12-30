@@ -29,11 +29,11 @@ export function Form(props: Props) {
     const formValidation = () => {
         let isValid = true
         
-        if(state.data.name.length<5) {
+        if(state.data.nameProduct.length<5) {
             isValid = false
             setState({...state,nameErr: 'Name product is too short'})
         }
-        if(state.data.name === '') {
+        if(state.data.nameProduct === '') {
             isValid = false
             setState({...state,nameErr: 'Name product is not empty'})
         }
@@ -67,7 +67,7 @@ export function Form(props: Props) {
                 <div className='icon-form-x'><i onClick={()=>props.closeModal(false)} ><FaTimes/></i></div>
                 <div className='input'>
                     <label className='label'>Product Name</label>
-                    <input onChange={e => {setState({...state,data:({...state.data,name: String(e.target.value)})})}} value={state.data.name} name='name' type="text" placeholder='Name' />
+                    <input onChange={e => {setState({...state,data:({...state.data,nameProduct: String(e.target.value)})})}} value={state.data.nameProduct} name='name' type="text" placeholder='Name' />
                     <label className='labelErr'><p>{state.nameErr}</p></label>
                 </div>
                 

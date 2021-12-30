@@ -11,15 +11,22 @@ interface State {
 export default function PageProductDetail() {
     //state
     const [state, setState] = useState<State>({
-        product: {id:'',name:'',price:0,image: ''}
+        product: {idProduct:'',nameProduct:'',price:0,image: ''}
     })
 
     useEffect(() => {
         let id = window.location.pathname.substring(8)
         productController.getDetail(id).then(res => {
+            console.log(res);
             setState({...state,product: res})
         })
     },[])
+    console.log(state.product);
+    console.log(state.product.idProduct );
+    console.log(state.product.nameProduct);
+    console.log(state.product.price);
+    
+    
     
     return (
         <div className='container-detail'>
@@ -29,7 +36,7 @@ export default function PageProductDetail() {
                 </div>
 
                 <div className='information-detail'>
-                    <div className='title'>{state.product.name}</div>
+                    <div className='title'>{state.product.nameProduct}</div>
                     <div className='price'>{state.product.price} $</div>
                     <div className='title-includes'>PRODUCT SET INCLUDES:</div>
                     <div className='add'>

@@ -24,14 +24,14 @@ interface State {
 export function PageAdmin() {
     //state
     const [state, setState] = useState<State>({
-        newData: {id:"",price: 0,name:"",image:""},
+        newData: {idProduct:"",price: 0,nameProduct:"",image:""},
         nameButton: '',
         dataProduct: [],
         page: 1,
         countPage: 1,
         search: '',
         sort: '',
-        dataProductDetail: {id:"",price: 0,name:"",image:""},
+        dataProductDetail: {idProduct:"",price: 0,nameProduct:"",image:""},
         openModal: false
     })
 
@@ -44,10 +44,10 @@ export function PageAdmin() {
             setState({...state, dataProduct: res.list, countPage: res.pageCount})
         })
     }
-
+    
     //get list
     useEffect(() => {
-        list({page:state.page,size:8,search:state.search,sort:state.sort})
+        list({page:state.page,size:4,search:state.search,sort:state.sort})
     },[state.page,state.search,state.sort])
 
     //delete
@@ -59,13 +59,13 @@ export function PageAdmin() {
     
     //add and update
     const onAdd = (dataAdd: Product) => {   
-        if (dataAdd.id === '') {           
-            dataAdd.id = uuid()
+        if (dataAdd.idProduct === '') {           
+            dataAdd.idProduct = uuid()
             productController.add(dataAdd).then(res => {
                 setState({...state,dataProduct: res})
             })
-        }else {    
-            productController.update(dataAdd).then(res => {               
+        }else {
+            productController.update(dataAdd,dataAdd.idProduct).then(res => {     
                 setState({...state, dataProduct: res})
             })
         }

@@ -7,7 +7,9 @@ class ProductController {
 
     //delete
     async delete(idProduct: string): Promise<Product[]> {
-        return axios.get(`http://localhost:8000/delete/${idProduct}`).then(res => {
+        return await axios.get(`http://localhost:8000/products/delete/${idProduct}`).then(res => {
+            console.log(res.data.listProduct);
+            
             return res.data
         })
     }
@@ -21,30 +23,31 @@ class ProductController {
     }
     //add product
     async add(product: Product): Promise<Product[]> {
-        return axios.post('http://localhost:8000/add',product).then(resp => {
-            return resp.data
+        return axios.post('http://localhost:8000/products/create',product).then(res => {
+            return res.data
         })
     }
 
     //update product
-    async update(product: Product): Promise<Product[]> {
-        console.log(product.name);
-        return axios.put('http://localhost:8000/update',product).then(res => {
-            console.log(res.data);
-            
+    async update(product: Product, idProduct: string): Promise<Product[]> {
+        console.log(product);
+        return axios.put(`http://localhost:8000/products/update/${idProduct}`,product).then(res => {
             return res.data
         })
     }
 
     //get detail
     async getDetail(idProduct: string): Promise<Product> {
-        return axios.get(`http://localhost:8000/product/${idProduct}`).then(res => {
+        return axios.get(`http://localhost:8000/products/detail/${idProduct}`).then(res => {
+            console.log(res.data);
+            
             return res.data
         })
     }
+
     //pagination
     async pagination(list:Pagination) {
-        return axios.post('http://localhost:8000/shop',list).then(res => {      
+        return await axios.post('http://localhost:8000/products/pagination',list).then(res => {      
             let list : Product[] = res.data.listProduct 
             let pageCount: number = res.data.pageCount
             return {list, pageCount}

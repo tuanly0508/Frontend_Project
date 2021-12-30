@@ -39,16 +39,16 @@ export default function PageShop() {
 
     // handle click
     const handleClick = (product: Product) => {
-        let index = state.listCart.find(data => data.id === product.id)
+        let index = state.listCart.find(data => data.id === product.idProduct)
         let listAdd = state.listCart
         if(index) {
-            let index = state.listCart.findIndex(data => data.id === product.id)
+            let index = state.listCart.findIndex(data => data.id === product.idProduct)
             setState({...state,quantity: state.listCart[index].quantity+=1})
         }else {
             listAdd.push({
-                id: product.id,
+                id: product.idProduct,
                 price: product.price,
-                name: product.name,
+                name: product.nameProduct,
                 image: product.image,
                 quantity: 1
             })
@@ -62,6 +62,8 @@ export default function PageShop() {
         setState({...state, page: selected+1})
     }
     const disPlayProduct = state.list?.map((item,key) => {
+        console.log(item);
+        
         return (
             <ProductDetail product={item} handleClick={handleClick} key={key}/>
         )
@@ -69,7 +71,7 @@ export default function PageShop() {
     
     //get list
     useEffect(() => {
-        list({page:state.page,size:8,search:state.search,sort:state.sort})
+        list({page:state.page,size:4,search:state.search,sort:state.sort})
     },[state.page,state.search,state.sort])
 
     const list = (pagination: Pagination) => {
