@@ -8,14 +8,13 @@ import { Product } from '../../../model/Product';
 import { productController } from '../../../controller/ProductController';
 import { Cart, getLocalStorage } from '../../../model/Cart';
 import { Pagination } from '../../../model/Pagination';
+import { cartController } from '../../../controller/CartController';
+import { orderProduct } from '../../../model/orderProduct';
 
 interface State {
     search: string,
     list: Product[],
-    clearInput: string,
     countPage: number,
-    listCart: Cart[],
-    quantity: number,
     perPage: number,
     page: number,
     sort: string,
@@ -27,56 +26,37 @@ export default function PageShop() {
     const [state, setState] = useState<State>({
         search: '',
         list: [],
-        clearInput: '',
         countPage: 1,
-        listCart: getLocalStorage(),
-        quantity: 0,
         perPage: 0,
         page: 1,
         sort: '',
-        desc: ''
+        desc: '',
     })
 
-    // handle click
-    const handleClick = (product: Product) => {
-        let index = state.listCart.find(data => data.id === product.idProduct)
-        let listAdd = state.listCart
-        if(index) {
-            let index = state.listCart.findIndex(data => data.id === product.idProduct)
-            setState({...state,quantity: state.listCart[index].quantity+=1})
-        }else {
-            listAdd.push({
-                id: product.idProduct,
-                price: product.price,
-                name: product.nameProduct,
-                image: product.image,
-                quantity: 1
-            })
-            setState({...state, listCart: listAdd})
-        }
-        localStorage.setItem('list-cart',JSON.stringify(listAdd))
+    const onAddDatabase = (order: orderProduct) => {      
+        cartController.addCart(order) 
     }
-    
+
     //pagination
     const changePage = ({selected}:any) => { 
         setState({...state, page: selected+1})
     }
     const disPlayProduct = state.list?.map((item,key) => {
-        console.log(item);
-        
         return (
-            <ProductDetail product={item} handleClick={handleClick} key={key}/>
+            <ProductDetail product={item} onAddDatabase={onAddDatabase} key={key}/>
         )
     })
     
     //get list
     useEffect(() => {
-        list({page:state.page,size:4,search:state.search,sort:state.sort})
+        list({page:state.page,size:8,search:state.search,sort:state.sort})
     },[state.page,state.search,state.sort])
 
     const list = (pagination: Pagination) => {
         productController.pagination(pagination).then( res => {
-            setState({...state, list: res.list, countPage: res.pageCount})
+            console.log(res.list);
+            
+            setState({...state, list: res.list, countPage: Math.ceil(res.pageCount)})
         })
     }
     
@@ -168,3 +148,24 @@ export default function PageShop() {
         </div>
     )
 }
+
+
+    // handle click
+    // const handleClick = (product: Product) => {
+    //     let index = state.listCart.find(data => data.id === product.idProduct)
+    //     let listAdd = state.listCart
+    //     if(index) {
+    //         let index = state.listCart.findIndex(data => data.id === product.idProduct)
+    //         setState({...state,quantity: state.listCart[index].quantity+=1})
+    //     }else {
+    //         listAdd.push({
+    //             id: product.idProduct,
+    //             price: product.price,
+    //             name: product.nameProduct,
+    //             image: product.image,
+    //             quantity: 1
+    //         })
+    //         setState({...state, listCart: listAdd})
+    //     }
+    //     localStorage.setItem('list-cart',JSON.stringify(listAdd))
+    // }

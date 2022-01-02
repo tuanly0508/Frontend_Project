@@ -1,64 +1,79 @@
 import React, {useEffect, useState } from 'react'
-import { Cart, getLocalStorage } from '../../../model/Cart'
 import PageCheckout from '../../check-out/PageCheckout'
 import ItemCart from '../ItemCart'
 import './PageCart.css'
 import {FaCartPlus} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-
+import { cartController } from '../../../controller/CartController'
 interface State {
-    dataProduct: Cart[],
-    totalPrice: number,
-    showPage: boolean
+    showPage: boolean,
+    dataCart: dataCart[]
+    totalPrice: number
+}
+export interface dataCart {
+    idOrder: string,
+    idUser: string,
+    image: string,
+    price:number,
+    nameProduct:string, 
+    quantity: number, 
+    timeAt: string,
+    totalPrice: number
 }
 
 export function PageCart() {
     //state
     const [state, setState] = useState<State>({
-        dataProduct: getLocalStorage(),
-        totalPrice: 0,
-        showPage: false
+        showPage: false,
+        dataCart: [],
+        totalPrice: 0
     })
-
-    //update page cart
+    
+    //useEffect
     useEffect(() => {
-        let y = 0
-        state.dataProduct.map((item, key) => {
-            y += item.quantity * item.price
-        })
-        setState({...state,totalPrice:y})
+        getItemCart()
+        totalPrice()
     },[])
 
-    //delete item cart
-    const onDelete = (id:string) => {
-        let i = state.dataProduct.filter(data => data.id !== id)
-        setState({...state,dataProduct:i})
-        localStorage.setItem('list-cart',JSON.stringify(i))
+    //get item cart
+    const getItemCart = () => {
+        cartController.getItemCart('1').then(res => { 
+            setState({...state,dataCart: res})
+        })
+    }
+
+    // total price
+    const totalPrice = () => { 
+        let y= 0
+        state.dataCart.map((item) => {    
+            y += item.price * item.quantity
+        })
+        setState({...state,totalPrice: y})
     }
     
-    //onUpdate quantity
-    const onPlusQuantity = (id: string,quantity: number) => {
-        let listPlus = state.dataProduct
-        let i = listPlus.findIndex(data  => data.id === id)
-        listPlus[i].quantity = quantity
-        localStorage.setItem('list-cart', JSON.stringify(listPlus))
-        setState({...state, dataProduct: listPlus})
-        let y = 0
-        state.dataProduct.map((item, key) => {
-            y += item.quantity * item.price
+    //delete item cart database
+    const onDelete = (idCart:string) => {
+        cartController.deleteCart(idCart,'1').then(res => {
+            setState({...state,dataCart: res})
         })
-        setState({...state,totalPrice:y})
+    }
+    
+    //update plus and minus quantity database
+    const onPlusQuantity = (idCart:string, quantity:number, idUser: string) => {
+        cartController.updateCart(idCart,idUser,quantity).then(res => {
+            setState({...state,dataCart:res})
+        })
     }
     
     //render item cart
-    const displayItemCart = state.dataProduct.map((item,key) => {
+    const displayItemCart = state.dataCart.map((item,key) => {
         return (
-            < ItemCart cart={item} onDelete={onDelete} onPlusQuantity={onPlusQuantity} quantity={item.quantity} key={key}/>
+            < ItemCart cart={item} onPlusQuantity={onPlusQuantity} onDelete={onDelete} key={key}/>
         )
     })
-
+    
     const displayEmpty = () => {
-        if (state.dataProduct.length > 0) {
+        if (state.dataCart.length > 0) {
             return (
                 <div className='content-cart'>
                 <table className='table-top'>
@@ -79,7 +94,7 @@ export function PageCart() {
                             <th></th>
                             <th></th>
                             <th className='title-total'>Total:</th>
-                            <th><p>{state.totalPrice}$</p></th>
+                            <th><p>{}$</p></th>
                             <th>
                                 <button className="btn btn-buy-cart" onClick={showPage}>Buy</button>
                             </th>
@@ -115,7 +130,7 @@ export function PageCart() {
     
     return (
         <div>
-            {state.showPage !== false && state.dataProduct.length > 0 ?  <PageCheckout dataProduct={state.dataProduct} totalPrice={state.totalPrice} showPage={show}/> : 
+            {state.showPage !== false && state.dataCart.length > 0 ?  <PageCheckout dataCart={state.dataCart} totalPrice={state.totalPrice} showPage={show}/> : 
                 <div className='container-cart'>
                     {displayEmpty()}
                 </div>
@@ -123,3 +138,24 @@ export function PageCart() {
         </div>
     )
 }
+
+//delete item cart local
+    // const onDelete = (id:string) => {
+    //     let i = state.dataProduct.filter(data => data.id !== id)
+    //     setState({...state,dataProduct:i})
+    //     localStorage.setItem('list-cart',JSON.stringify(i))
+    // }
+
+    //onUpdate quantity local
+    // const onPlusQuantity = (id: string,quantity: number) => {
+    //     let listPlus = state.dataProduct
+    //     let i = listPlus.findIndex(data  => data.id === id)
+    //     listPlus[i].quantity = quantity
+    //     localStorage.setItem('list-cart', JSON.stringify(listPlus))
+    //     setState({...state, dataProduct: listPlus})
+    //     let y = 0
+    //     state.dataProduct.map((item, key) => {
+    //         y += item.quantity * item.price
+    //     })
+    //     setState({...state,totalPrice:y})
+    // }

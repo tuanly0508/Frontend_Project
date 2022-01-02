@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Footer from './component/footer/Footer'
 import Header from './component/header/Header'
 import {PageAdmin} from './page/admin/page-admin/PageAdmin'
@@ -8,7 +8,6 @@ import PageShop from './page/shop/page-shop/PageShop'
 import {PageCart} from './page/cart/page-cart/PageCart'
 import PageProductDetail from './page/product-detail/detail/PageProductDetail'
 import PageOrder from './page/order/PageOrder'
-import PageCheckout from './page/check-out/PageCheckout'
 
 export default function App() {
   return (

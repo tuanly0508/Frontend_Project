@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Pagination } from '../model/Pagination'
 import { Product } from '../model/Product'
-import {ListOrder} from '../model/ListOrder'
 
 class ProductController {
 
@@ -13,14 +12,7 @@ class ProductController {
             return res.data
         })
     }
-    //add order
-    async addOrder(listOrder: ListOrder): Promise<ListOrder[]> { 
-        return axios.post('http://localhost:8000/checkout/delivery',listOrder).then(res => {
-            console.log(listOrder);
-            
-            return res.data
-        })
-    }
+
     //add product
     async add(product: Product): Promise<Product[]> {
         return axios.post('http://localhost:8000/products/create',product).then(res => {
@@ -48,17 +40,15 @@ class ProductController {
     //pagination
     async pagination(list:Pagination) {
         return await axios.post('http://localhost:8000/products/pagination',list).then(res => {      
-            let list : Product[] = res.data.listProduct 
+            let list : Product[] = res.data.list 
+            console.log(list);
+            
             let pageCount: number = res.data.pageCount
             return {list, pageCount}
         })
     }
 
-    async getListOrder(idUser: string): Promise<ListOrder[]> {
-        return axios.get(`http://localhost:8000/user/orders/${idUser}`).then(res => {           
-            return res.data
-        })
-    }
+
 }
 
 export const productController = new ProductController()

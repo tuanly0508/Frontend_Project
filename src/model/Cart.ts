@@ -1,9 +1,15 @@
 
+// export interface Cart {
+//     id: string
+//     price: number
+//     name: string
+//     image: string
+//     quantity: number
+// }
 export interface Cart {
-    id: string
-    price: number
-    name: string
-    image: string
+    idCart: string
+    idUser: string
+    idProduct: string
     quantity: number
 }
 

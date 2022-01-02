@@ -2,33 +2,46 @@ import React, { useEffect, useState } from 'react'
 import './PageOrder.css'
 import {FaCartPlus, FaShoppingCart} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { ListOrder } from '../../model/ListOrder';
-import { productController } from '../../controller/ProductController';
-import { Cart } from '../../model/Cart';
-
+import { orderController } from '../../controller/OrderController';
+import { userController } from '../../controller/UserController';
+import { buyUser } from '../../model/BuyUser';
+interface dataCartDone {
+    image: string,price: number,nameProduct:string,quantity:number,totalPrice:number
+}
 interface State {
-    dataOrder: ListOrder[],
     idUser: string,
-    product: Cart[],
-    totalPrice: number
+    totalPrice: number,
+    dataUser: buyUser[],
+    dataCartDone: dataCartDone[]
 }
 
 export default function PageOrder() {
     const [state, setState] = useState<State>({
-        dataOrder: [],
         idUser: '1',
-        product: [],
-        totalPrice: 0
+        totalPrice: 0,
+        dataUser: [],
+        dataCartDone: []
     })
 
-    useEffect(() => {
-        productController.getListOrder(state.idUser).then(res => {
-            setState({...state, dataOrder: res})
+    const getUserDetail = () => {
+        userController.getUserDetail('1').then(res => {
+            setState({...state,dataUser:res})
         })
+    }
+    
+    const getItemOrder = () => {
+        orderController.getItemOrder('1').then(res => {           
+            setState({...state,dataCartDone: res})
+        })
+    }
+    console.log(state.dataCartDone);
+    
+    useEffect(() => {
+        getItemOrder()
+        getUserDetail()
     },[])
     
-    const displayItem = state.dataOrder.map((item) => {
-        let i = 0 
+    const displayItem = state.dataUser.map((item,key) => { 
         return (
             <table className='table-body'>
                 <thead>
@@ -41,42 +54,42 @@ export default function PageOrder() {
                             </Link>
                         </th>
                         <th className='right'>
-                            <div><p>{item.timeAt} | <span>Pending</span></p></div>
-                            <div><p>{item.nameCus}, {item.mobile}, {item.email}, {item.address}</p></div>
+                            <div><p>{} | <span>Pending</span></p></div>
+                            <div><p>{item.nameUser}, {item.phone}, {item.email}, {item.address}</p></div>
                         </th>
                     </tr>
                 </thead>
-                
-                {item.product.map((item2) => {
-                    i += item2.quantity * item2.price
-                    return (    
-                        <tbody >
-                            <tr >
-                                <td>
-                                    <div className='img-order'>
-                                        <img src={item2.image} alt="" />
-                                    </div>
-                                    <div>
-                                        <div><p>{item2.name}</p></div>
-                                        <div><p className='desc'>Description</p></div>
-                                        <div><p className='quantity'>x {item2.quantity}</p></div>
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td className='total-order'><p>{item2.price} $</p></td>
-                            </tr>
-                        </tbody>
-                    )
-                })}
+                <tbody >
+                    {state.dataCartDone.map((item,key) => {
+                        return (
+                            <>
+                                <tr >
+                                    <td>
+                                        <div className='img-order'>
+                                            <img src={item.image} alt="" />
+                                        </div>
+                                        <div>
+                                            <div><p>{item.nameProduct}</p></div>
+                                            <div><p className='desc'>Description</p></div>
+                                            <div><p className='quantity'>x {item.quantity}</p></div>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td className='total-order'><p>{item.price} $</p></td>
+                                </tr>
+                            </>
+                        )
+                    })}
+                </tbody>
                 <tfoot>
                     <tr>
                         <th className='order-total'>
-                            <td><p>Estimated cost: <span>{i} $</span></p></td>
+                            <td><p>Estimated cost: <span>{} $</span></p></td>
                             <td><p>Shipping fee: <span>5 $</span></p></td>
                         </th>
                         <th></th>
                         <th className='order-total-2'>
-                            <td><p >Total: <span>{i +5} $</span></p></td>
+                            <td><p >Total: <span>{ +5} $</span></p></td>
                         </th>
                     </tr>
                 </tfoot>
@@ -86,7 +99,7 @@ export default function PageOrder() {
 
     return (
         <>
-            {state.dataOrder.length > 0 ? 
+            {state.dataCartDone.length > 0 ? 
                 <div className='container-order'>
                     <div className='content'>
                         <div className='content-order-top' >

@@ -2,48 +2,40 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './PageCheckOut.css'
 import {FaBackward} from 'react-icons/fa'
-import { v4 as uuid } from 'uuid';
-import { productController } from '../../controller/ProductController'
-import { ListOrder } from '../../model/ListOrder';
-import { Product } from '../../model/Product';
-import { Cart } from '../../model/Cart';
-import moment from 'moment';
+import { buyUser } from '../../model/BuyUser';
+import { userController } from '../../controller/UserController';
+import { dataCart } from '../cart/page-cart/PageCart';
+import { orderController } from '../../controller/OrderController';
 
 interface State {
-    dataOrder: ListOrder[],
     showPage: boolean,
-    dataInput: ListOrder
+    dataInput: buyUser
 }
 
 interface Props {
     showPage: (show:boolean) => void
     totalPrice: number
-    dataProduct: Cart[]
+    dataCart: dataCart[]
 }
-//{name:'',mobile:'',email:'',address:''}
+
 export default function PageCheckout(props: Props) {
-    let now = new Date()
-    var i = moment(now).format('DD-MM-YYYY HH:MM:SS ')
-    
     //state
     const [state, setState] = useState<State>({
-        dataOrder: [],
         showPage: false,
-        dataInput: {idOrder:'',idUser:'1',nameCus:'',mobile:'',email:'',address:'',timeAt:i,product: props.dataProduct }
+        dataInput: {idUser: '1', nameUser: '', email: '', phone: '', address: ''}
     })
-
+    
     //show page
     const showPage = () => {
         props.showPage(state.showPage)
     }
 
     //add
-    const handleSubmit = () => {
-        state.dataInput.idOrder = uuid()        
-        productController.addOrder(state.dataInput).then(res => {
-            setState({...state,dataOrder: res})
-        })
-        localStorage.setItem('list-cart','')
+    const handleSubmit = () => {     
+        userController.update(state.dataInput)
+        props.dataCart.map((item) => {
+            orderController.updateStatusOrder(item.idOrder,'1')
+        })            
     }
 
     return (
@@ -52,11 +44,11 @@ export default function PageCheckout(props: Props) {
                 <div className='content-form'>
                     <form >
                         <div className='title-form-check'>
-                            <i onClick={showPage}><FaBackward/></i>   <h2>Delivery Address</h2>
+                            <i onClick={showPage}><FaBackward/></i><h2>Delivery Address</h2>
                         </div>
                         <div>
-                            <input onChange={e => {setState({...state,dataInput:({...state.dataInput,nameCus: (e.target.value)})})}}  type="text" placeholder='Name' />
-                            <input onChange={e => {setState({...state,dataInput:({...state.dataInput,mobile: (e.target.value)})})}} type="text" placeholder='Mobile'/>
+                            <input onChange={e => {setState({...state,dataInput:({...state.dataInput,nameUser: (e.target.value)})})}}  type="text" placeholder='Name' />
+                            <input onChange={e => {setState({...state,dataInput:({...state.dataInput,phone: (e.target.value)})})}} type="text" placeholder='Mobile'/>
                             <input onChange={e => {setState({...state,dataInput:({...state.dataInput,email: (e.target.value)})})}} type="text" placeholder='Email'/>
                             <input onChange={e => {setState({...state,dataInput:({...state.dataInput,address: (e.target.value)})})}} type="text" placeholder='Address'/>
                         </div>
@@ -66,7 +58,7 @@ export default function PageCheckout(props: Props) {
                     <div className='info-check'>
                         <p className='your-order'>Your order</p>    
                         <p className='tu-clothing'>To Clothing</p>
-                        <p>Prices <span>{props.totalPrice} $</span> </p>
+                        <p>Prices <span> $</span> </p>
                         <p >Delivery <span className='delivery'>3$</span> </p>
                         <p className='total-order-check'>Total <span>{props.totalPrice+3} $</span> </p>
                     </div>
