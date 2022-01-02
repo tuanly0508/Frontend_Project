@@ -40,9 +40,7 @@ class ProductController {
     //pagination
     async pagination(list:Pagination) {
         return await axios.post('http://localhost:8000/products/pagination',list).then(res => {      
-            let list : Product[] = res.data.list 
-            console.log(list);
-            
+            let list : Product[] = res.data.dataProduct
             let pageCount: number = res.data.pageCount
             return {list, pageCount}
         })

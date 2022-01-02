@@ -3,16 +3,14 @@ import './PageOrder.css'
 import {FaCartPlus, FaShoppingCart} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { orderController } from '../../controller/OrderController';
-import { userController } from '../../controller/UserController';
 import { buyUser } from '../../model/BuyUser';
-interface dataCartDone {
-    image: string,price: number,nameProduct:string,quantity:number,totalPrice:number
-}
+import moment from 'moment';
+import { dataCartOrder } from '../../model/DataCartOrder';
 interface State {
     idUser: string,
     totalPrice: number,
     dataUser: buyUser[],
-    dataCartDone: dataCartDone[]
+    dataCartOrder: dataCartOrder[]
 }
 
 export default function PageOrder() {
@@ -20,28 +18,20 @@ export default function PageOrder() {
         idUser: '1',
         totalPrice: 0,
         dataUser: [],
-        dataCartDone: []
+        dataCartOrder: []
     })
-
-    const getUserDetail = () => {
-        userController.getUserDetail('1').then(res => {
-            setState({...state,dataUser:res})
-        })
-    }
     
     const getItemOrder = () => {
-        orderController.getItemOrder('1').then(res => {           
-            setState({...state,dataCartDone: res})
+        orderController.getOrder('1').then(res => {
+            setState({...state,dataCartOrder: res.dataCart, dataUser: res.dataUser})
         })
     }
-    console.log(state.dataCartDone);
     
     useEffect(() => {
         getItemOrder()
-        getUserDetail()
     },[])
     
-    const displayItem = state.dataUser.map((item,key) => { 
+    const displayItem = state.dataUser.map((item) => {
         return (
             <table className='table-body'>
                 <thead>
@@ -60,7 +50,7 @@ export default function PageOrder() {
                     </tr>
                 </thead>
                 <tbody >
-                    {state.dataCartDone.map((item,key) => {
+                    {state.dataCartOrder.map((item) => {
                         return (
                             <>
                                 <tr >
@@ -99,7 +89,7 @@ export default function PageOrder() {
 
     return (
         <>
-            {state.dataCartDone.length > 0 ? 
+            {state.dataCartOrder.length > 0 ? 
                 <div className='container-order'>
                     <div className='content'>
                         <div className='content-order-top' >

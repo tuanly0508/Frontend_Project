@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Pagination } from '../model/Pagination'
 import { Cart } from '../model/Cart'
 import { orderProduct } from '../model/orderProduct'
+import { dataCart } from '../page/cart/page-cart/PageCart'
 
 class CartController {
 
@@ -15,14 +16,18 @@ class CartController {
     //get item cart
     async getItemCart(idUser: string) {
         return await axios.get(`http://localhost:8000/carts/${idUser}`).then(res => {
-            return res.data
+            let dataCart: dataCart[] = res.data.dataCart
+            let totalPrice: number = res.data.totalPrice
+            return {dataCart,totalPrice}
         })
     }
 
     //update item cart
     async updateCart(idOrder: string,idUser: string,quantity:number) {
         return axios.put(`http://localhost:8000/carts/update/${idOrder}/${idUser}/${quantity}`).then(res => {
-            return res.data
+            let dataCart: dataCart[] = res.data.dataCart
+            let totalPrice: number = res.data.totalPrice
+            return {dataCart,totalPrice}
         })
     }
 

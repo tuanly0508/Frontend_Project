@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { cartController } from '../../../controller/CartController'
 interface State {
     showPage: boolean,
-    dataCart: dataCart[]
+    dataCart: dataCart[],
     totalPrice: number
 }
 export interface dataCart {
@@ -16,9 +16,7 @@ export interface dataCart {
     image: string,
     price:number,
     nameProduct:string, 
-    quantity: number, 
-    timeAt: string,
-    totalPrice: number
+    quantity: number
 }
 
 export function PageCart() {
@@ -32,23 +30,20 @@ export function PageCart() {
     //useEffect
     useEffect(() => {
         getItemCart()
-        totalPrice()
+        let y= 0
+        state.dataCart.map((item) => {    
+            y += item.price * item.quantity
+            console.log(y);
+            
+        })
+        
     },[])
 
     //get item cart
     const getItemCart = () => {
         cartController.getItemCart('1').then(res => { 
-            setState({...state,dataCart: res})
+            setState({...state,dataCart: res.dataCart,totalPrice: res.totalPrice})
         })
-    }
-
-    // total price
-    const totalPrice = () => { 
-        let y= 0
-        state.dataCart.map((item) => {    
-            y += item.price * item.quantity
-        })
-        setState({...state,totalPrice: y})
     }
     
     //delete item cart database
@@ -61,7 +56,7 @@ export function PageCart() {
     //update plus and minus quantity database
     const onPlusQuantity = (idCart:string, quantity:number, idUser: string) => {
         cartController.updateCart(idCart,idUser,quantity).then(res => {
-            setState({...state,dataCart:res})
+            setState({...state,dataCart:res.dataCart,totalPrice: res.totalPrice})
         })
     }
     
@@ -94,7 +89,7 @@ export function PageCart() {
                             <th></th>
                             <th></th>
                             <th className='title-total'>Total:</th>
-                            <th><p>{}$</p></th>
+                            <th><p>{state.totalPrice.toPrecision(3)}$</p></th>
                             <th>
                                 <button className="btn btn-buy-cart" onClick={showPage}>Buy</button>
                             </th>

@@ -6,10 +6,13 @@ import { buyUser } from '../../model/BuyUser';
 import { userController } from '../../controller/UserController';
 import { dataCart } from '../cart/page-cart/PageCart';
 import { orderController } from '../../controller/OrderController';
+import {v4 as uuid} from 'uuid'
+import { orderTemp } from '../../model/orderTemp';
 
 interface State {
     showPage: boolean,
-    dataInput: buyUser
+    dataInput: buyUser,
+    orderTemp: orderTemp
 }
 
 interface Props {
@@ -22,7 +25,8 @@ export default function PageCheckout(props: Props) {
     //state
     const [state, setState] = useState<State>({
         showPage: false,
-        dataInput: {idUser: '1', nameUser: '', email: '', phone: '', address: ''}
+        dataInput: {idUser: '1', nameUser: '', email: '', phone: '', address: ''},
+        orderTemp: {idOrder:'',idUser:'1', isTemp: true}
     })
     
     //show page
@@ -34,8 +38,8 @@ export default function PageCheckout(props: Props) {
     const handleSubmit = () => {     
         userController.update(state.dataInput)
         props.dataCart.map((item) => {
-            orderController.updateStatusOrder(item.idOrder,'1')
-        })            
+            orderController.updateOrderTempStt(item.idOrder,'1')
+        })        
     }
 
     return (
@@ -58,9 +62,9 @@ export default function PageCheckout(props: Props) {
                     <div className='info-check'>
                         <p className='your-order'>Your order</p>    
                         <p className='tu-clothing'>To Clothing</p>
-                        <p>Prices <span> $</span> </p>
+                        <p>Prices <span>{props.totalPrice.toPrecision(2)} $</span> </p>
                         <p >Delivery <span className='delivery'>3$</span> </p>
-                        <p className='total-order-check'>Total <span>{props.totalPrice+3} $</span> </p>
+                        <p className='total-order-check'>Total <span>{(props.totalPrice+3).toPrecision(3)} $</span> </p>
                     </div>
                     <div>
                         <Link to='/checkout/completed'>
