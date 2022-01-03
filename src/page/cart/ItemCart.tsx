@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {FaTrash, FaMinusCircle, FaPlusCircle} from 'react-icons/fa'
 
 export interface Props {
-    cart: {idOrder:string,idUser: string,image: string,price:number,nameProduct:string, quantity: number},
+    cart: {idOrder:string,idUser: string,idProduct: string,image: string,price:number,nameProduct:string, quantity: number},
     onDelete: (idProduct:string) => void,
     onPlusQuantity: (idCart:string, quantity: number,idUser:string) => void,
 }
@@ -43,7 +43,7 @@ export default function ItemCart(props: Props) {
                 <i onClick={onPlusQuantity} ><FaPlusCircle/></i>
             </td>
             <td className='price'>$ {(state.quantity * props.cart.price).toPrecision(3)}</td>
-            <td className='function'><FaTrash onClick={() => props.onDelete(props.cart.idOrder) } /></td>
+            <td className='function'><FaTrash onClick={() => props.onDelete(props.cart.idProduct) } /></td>
         </tr>
     )
 }

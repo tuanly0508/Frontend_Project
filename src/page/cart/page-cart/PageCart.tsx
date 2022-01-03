@@ -13,6 +13,7 @@ interface State {
 export interface dataCart {
     idOrder: string,
     idUser: string,
+    idProduct: string,
     image: string,
     price:number,
     nameProduct:string, 
@@ -34,9 +35,7 @@ export function PageCart() {
         state.dataCart.map((item) => {    
             y += item.price * item.quantity
             console.log(y);
-            
         })
-        
     },[])
 
     //get item cart
@@ -47,8 +46,8 @@ export function PageCart() {
     }
     
     //delete item cart database
-    const onDelete = (idCart:string) => {
-        cartController.deleteCart(idCart,'1').then(res => {
+    const onDelete = (idProduct:string) => {
+        cartController.deleteCart(idProduct,'1').then(res => {
             setState({...state,dataCart: res})
         })
     }

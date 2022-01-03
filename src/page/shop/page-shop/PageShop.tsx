@@ -54,8 +54,6 @@ export default function PageShop() {
 
     const list = (pagination: Pagination) => {
         productController.pagination(pagination).then( res => {
-            console.log(res.list);
-            
             setState({...state, list: res.list, countPage: Math.ceil(res.pageCount)})
         })
     }

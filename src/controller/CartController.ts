@@ -7,8 +7,8 @@ import { dataCart } from '../page/cart/page-cart/PageCart'
 class CartController {
 
     //delete item cart
-    async deleteCart(idOrder: string,idUser: string) {
-        return await axios.get(`http://localhost:8000/carts/delete/${idOrder}/${idUser}`).then(res => {      
+    async deleteCart(idProduct: string,idUser: string) {
+        return await axios.get(`http://localhost:8000/carts/delete/${idProduct}/${idUser}`).then(res => {      
             return res.data
         })
     }
