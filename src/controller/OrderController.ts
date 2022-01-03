@@ -1,18 +1,18 @@
 import axios from 'axios'
-import { Pagination } from '../model/Pagination'
-import { Cart } from '../model/Cart'
-import { orderProduct } from '../model/orderProduct'
 import { buyUser } from '../model/BuyUser'
 import { dataCartOrder } from '../model/DataCartOrder'
+import { orderProduct } from '../model/orderProduct'
 import { orderTemp } from '../model/orderTemp'
 
 class OrderController {
     //get item order
     async getOrder(idUser: string) {
         return await axios.get(`http://localhost:8000/orders/${idUser}`).then(res => {
-            let dataUser:buyUser[] = res.data.dataUser
-            let dataCart:dataCartOrder[] = res.data.dataCart
-            return {dataUser,dataCart}
+            
+            // let dataUser:buyUser = res.data
+            // let dataCart:orderProduct[] = res.data.orderProduct
+            // let timeAt = res.data.timeAt
+            return res.data
         })
     }
 

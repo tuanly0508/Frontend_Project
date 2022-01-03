@@ -26,7 +26,7 @@ export default function PageCheckout(props: Props) {
     const [state, setState] = useState<State>({
         showPage: false,
         dataInput: {idUser: '1', nameUser: '', email: '', phone: '', address: ''},
-        orderTemp: {idOrder:'',idUser:'1', isTemp: true}
+        orderTemp: {idOrder:'',idUser:'1',timeAt:'', isTemp: true}
     })
     
     //show page

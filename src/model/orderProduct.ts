@@ -1,8 +1,9 @@
-export interface orderProduct {
+import { Product } from "./Product";
+
+export interface orderProduct{
     idOrder: string
-    idUser: string
     idProduct: string
     quantity: number
-    timeAt: string
     price: number
+    product?: Product
 }

@@ -16,7 +16,7 @@ interface State {
 
 export function ProductDetail(props:Props) {
     const [state, setState] = useState<State>({
-        orderProduct: {idOrder: uuid(),idUser: '1', idProduct: props.product.idProduct, quantity: 1, timeAt: moment(new Date()).format('DD-MM-YYYY HH:MM '),price:props.product.price}
+        orderProduct: {idOrder: uuid(), idProduct: props.product.idProduct, quantity: 1,price:props.product.price}
     })
     
     return (
