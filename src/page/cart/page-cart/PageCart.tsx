@@ -31,11 +31,6 @@ export function PageCart() {
     //useEffect
     useEffect(() => {
         getItemCart()
-        let y= 0
-        state.dataCart.map((item) => {    
-            y += item.price * item.quantity
-            console.log(y);
-        })
     },[])
 
     //get item cart
@@ -132,24 +127,3 @@ export function PageCart() {
         </div>
     )
 }
-
-//delete item cart local
-    // const onDelete = (id:string) => {
-    //     let i = state.dataProduct.filter(data => data.id !== id)
-    //     setState({...state,dataProduct:i})
-    //     localStorage.setItem('list-cart',JSON.stringify(i))
-    // }
-
-    //onUpdate quantity local
-    // const onPlusQuantity = (id: string,quantity: number) => {
-    //     let listPlus = state.dataProduct
-    //     let i = listPlus.findIndex(data  => data.id === id)
-    //     listPlus[i].quantity = quantity
-    //     localStorage.setItem('list-cart', JSON.stringify(listPlus))
-    //     setState({...state, dataProduct: listPlus})
-    //     let y = 0
-    //     state.dataProduct.map((item, key) => {
-    //         y += item.quantity * item.price
-    //     })
-    //     setState({...state,totalPrice:y})
-    // }
