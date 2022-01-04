@@ -6,7 +6,6 @@ import { orderController } from '../../controller/OrderController';
 import { OrderWithUser } from '../../model/orderTemp';
 import moment from 'moment';
 import ReactPaginate from 'react-paginate';
-import { Pagination } from '../../model/Pagination';
 interface State {
     idUser: string,
     totalPrice: number,
@@ -35,7 +34,7 @@ export default function PageOrder() {
         })
     },[state.page])
 
-    const displayItem = state.data.map((item) => {
+    const displayItem = state.data.map((item,key) => {
         let y = 0
         return (
             <table className='table-body'>
@@ -54,7 +53,7 @@ export default function PageOrder() {
                         </th>
                     </tr>
                 </thead>
-                {item.orderProduct.map((item) => {
+                {item.orderProduct.map((item,key) => {
                     y += item.price
                     return (<>
                         <tbody >
@@ -90,7 +89,6 @@ export default function PageOrder() {
             </table>
         )
     })
-
     return (
         <>
             {state.data.length > 0 ? 

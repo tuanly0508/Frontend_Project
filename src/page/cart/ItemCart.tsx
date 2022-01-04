@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import {FaTrash, FaMinusCircle, FaPlusCircle} from 'react-icons/fa'
 
 export interface Props {
@@ -47,22 +47,3 @@ export default function ItemCart(props: Props) {
         </tr>
     )
 }
-
-// () => props.onPlusQuantity(props.cart.id, state.quantity)
-    //onUpdate quantity local
-    // const onMinusQuantity = () => {
-    //     if (state.quantity >1) {
-    //         let minus = state.quantity
-    //         minus = minus - 1
-    //         setState({...state,quantity:minus})
-    //         props.onPlusQuantity(props.cart.id,minus)
-    //     }else setState({...state,quantity:1})
-    // }
-
-    //plus local
-    // const onPlusQuantity = () => {
-    //     let plus = state.quantity
-    //     plus = plus + 1
-    //     setState({...state,quantity:plus})
-    //     props.onPlusQuantity(props.cart.id,plus)
-    // }

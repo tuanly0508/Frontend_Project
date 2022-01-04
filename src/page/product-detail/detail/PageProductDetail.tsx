@@ -17,16 +17,9 @@ export default function PageProductDetail() {
     useEffect(() => {
         let id = window.location.pathname.substring(8)
         productController.getDetail(id).then(res => {
-            console.log(res);
             setState({...state,product: res})
         })
     },[])
-    console.log(state.product);
-    console.log(state.product.idProduct );
-    console.log(state.product.nameProduct);
-    console.log(state.product.price);
-    
-    
     
     return (
         <div className='container-detail'>

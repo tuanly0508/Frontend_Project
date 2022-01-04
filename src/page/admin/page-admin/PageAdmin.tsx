@@ -6,12 +6,9 @@ import { v4 as uuid } from 'uuid';
 import { ProductDetail } from '../list-product/ProductDetail';
 import ReactPaginate from 'react-paginate';
 import { productController } from '../../../controller/ProductController';
-import { Pagination } from '../../../model/Pagination';
 import { FaPlusCircle } from 'react-icons/fa';
 
 interface State {
-    newData: Product,
-    nameButton: string,
     dataProduct: Product[],
     page: number,
     countPage: number,
@@ -21,13 +18,9 @@ interface State {
     openModal: Boolean
 }
 
-
-
 export function PageAdmin() {
     //state
     const [state, setState] = useState<State>({
-        newData: {idProduct:"",price: 0,nameProduct:"",image:""},
-        nameButton: '',
         dataProduct: [],
         page: 1,
         countPage: 1,
@@ -41,16 +34,13 @@ export function PageAdmin() {
     const changePage = ({selected}:any) => {
         setState({...state,page: selected+1})
     }
-    const list = (pagination: Pagination) => {
-        productController.pagination(pagination).then( res => {
-            setState({...state, dataProduct: res.list, countPage: res.pageCount})
-        })
-    }
     
     //get list
     useEffect(() => {
-        list({page:state.page,size:4,search:state.search,sort:state.sort})
-    },[state.page,state.search,state.sort])
+        productController.pagination({size:8,page:state.page}).then( res => {
+            setState({...state, dataProduct: res.list, countPage: Math.ceil(res.pageCount)})
+        })
+    },[state.page])
 
     //delete
     const onDelete = (idProduct: string) => { 
@@ -64,11 +54,11 @@ export function PageAdmin() {
         if (dataAdd.idProduct === '') {           
             dataAdd.idProduct = uuid()
             productController.add(dataAdd).then(res => {
-                setState({...state,dataProduct: res})
+                setState({...state,dataProduct: res,openModal:false})
             })
         }else {
             productController.update(dataAdd,dataAdd.idProduct).then(res => {     
-                setState({...state, dataProduct: res})
+                setState({...state, dataProduct: res.list,countPage: Math.ceil(res.pageCount) ,openModal:false})
             })
         }
     }
@@ -93,9 +83,8 @@ export function PageAdmin() {
     return (
         <div className='container-admin'>
             <div className='title'><p>PRODUCTS MANAGEMENT</p> <button onClick={() => {setState({...state,openModal: true})}} ><FaPlusCircle/></button></div>
-            {state.openModal && <Form key={uuid()} closeModal={closeModal} onUpdate={state.dataProductDetail} onAdd={onAdd} onName={state.nameButton} />}
+            {state.openModal && <Form key={uuid()} closeModal={closeModal} onUpdate={state.dataProductDetail} onAdd={onAdd} />}
             <div className='content'>
-            
                 <div className='list-product'>
                     <div className='list'>
                         <div className='product'>

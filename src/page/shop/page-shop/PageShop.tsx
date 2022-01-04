@@ -6,13 +6,12 @@ import {FaAngleDoubleRight, FaSearch} from 'react-icons/fa'
 import ReactPaginate from 'react-paginate';
 import { Product } from '../../../model/Product';
 import { productController } from '../../../controller/ProductController';
-import { Cart, getLocalStorage } from '../../../model/Cart';
-import { Pagination } from '../../../model/Pagination';
 import { cartController } from '../../../controller/CartController';
 import { orderProduct } from '../../../model/orderProduct';
 
 interface State {
     search: string,
+    field: string
     list: Product[],
     countPage: number,
     perPage: number,
@@ -25,6 +24,7 @@ export default function PageShop() {
     //state
     const [state, setState] = useState<State>({
         search: '',
+        field: '',
         list: [],
         countPage: 1,
         perPage: 0,
@@ -49,40 +49,10 @@ export default function PageShop() {
     
     //get list
     useEffect(() => {
-        list({page:state.page,size:4,search:state.search,sort:state.sort})
-    },[state.page,state.search,state.sort])
-
-    const list = (pagination: Pagination) => {
-        productController.pagination(pagination).then( res => {
+        productController.pagination({search:state.search,field:state.field,sort: state.sort,page:state.page,size:8}).then( res => {
             setState({...state, list: res.list, countPage: Math.ceil(res.pageCount)})
         })
-    }
-    
-    //get value input
-    const onChange = (e: any) => {
-        let name = e.target.value
-        setState({...state,search: name})
-    }
-
-    //sort price up
-    const sortUp = () => {
-        setState({...state,sort: 'sortPriceUp'})
-    }
-
-    //sort price down
-    const sortDown = () => {
-        setState({...state,sort: 'sortPriceDown'})
-    }
-
-    //sort name up
-    const sortNameUp = () => {
-        setState({...state, sort: 'sortNameUp'})
-    }
-
-    //sort name down
-    const sortNameDown = () => {
-        setState({...state,sort: 'sortNameDown'})
-    }
+    },[state.page,state.search,state.field,state.sort,state.page,8])
     
     return (
         <div className='container-page-shop'>
@@ -95,15 +65,15 @@ export default function PageShop() {
 
                         <div className='inputSearch'>
                             <i className='icon'><FaSearch /></i>
-                            <input onChange={onChange} className='input' type="text" placeholder='Search...'/>
+                            <input onChange={(e) => setState({...state,search: (e.target.value)})} className='input' type="text" placeholder='Search...'/>
                         </div>
 
                         <div className="catalo-port">
                             <ul>
-                                <li onClick={sortUp} ><i><FaAngleDoubleRight/></i>Sort Up Ascending</li>
-                                <li onClick={sortDown}><i><FaAngleDoubleRight/></i>Sort Descending</li>
-                                <li onClick={sortNameUp}><i><FaAngleDoubleRight/></i>Sort Name A - Z</li>
-                                <li onClick={sortNameDown}><i><FaAngleDoubleRight/></i>Sort Name Z - A</li>
+                                <li onClick={(e) => setState({...state,field:'price',sort:'asc'})} ><i><FaAngleDoubleRight/></i>Sort Up Ascending</li>
+                                <li onClick={(e) => setState({...state,field:'price',sort:'desc'})}><i><FaAngleDoubleRight/></i>Sort Descending</li>
+                                <li onClick={(e) => setState({...state,field:'nameProduct',sort:'asc'})}><i><FaAngleDoubleRight/></i>Sort Name A - Z</li>
+                                <li onClick={(e) => setState({...state,field:'nameProduct',sort:'desc'})}><i><FaAngleDoubleRight/></i>Sort Name Z - A</li>
                             </ul>
                         </div>
 
@@ -146,24 +116,3 @@ export default function PageShop() {
         </div>
     )
 }
-
-
-    // handle click
-    // const handleClick = (product: Product) => {
-    //     let index = state.listCart.find(data => data.id === product.idProduct)
-    //     let listAdd = state.listCart
-    //     if(index) {
-    //         let index = state.listCart.findIndex(data => data.id === product.idProduct)
-    //         setState({...state,quantity: state.listCart[index].quantity+=1})
-    //     }else {
-    //         listAdd.push({
-    //             id: product.idProduct,
-    //             price: product.price,
-    //             name: product.nameProduct,
-    //             image: product.image,
-    //             quantity: 1
-    //         })
-    //         setState({...state, listCart: listAdd})
-    //     }
-    //     localStorage.setItem('list-cart',JSON.stringify(listAdd))
-    // }

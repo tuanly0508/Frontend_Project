@@ -1,7 +1,4 @@
 import axios from 'axios'
-import { buyUser } from '../model/BuyUser'
-import { dataCartOrder } from '../model/DataCartOrder'
-import { orderProduct } from '../model/orderProduct'
 import { orderTemp, OrderWithUser } from '../model/orderTemp'
 import { Pagination } from '../model/Pagination'
 

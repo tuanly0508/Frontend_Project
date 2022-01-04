@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './PageCheckOut.css'
 import {FaBackward} from 'react-icons/fa'
-import { buyUser } from '../../model/BuyUser';
 import { userController } from '../../controller/UserController';
 import { dataCart } from '../cart/page-cart/PageCart';
 import { orderController } from '../../controller/OrderController';
-import {v4 as uuid} from 'uuid'
 import { orderTemp } from '../../model/orderTemp';
+import { User } from '../../model/User';
 
 interface State {
     showPage: boolean,
-    dataInput: buyUser,
+    dataInput: User,
     orderTemp: orderTemp
 }
 

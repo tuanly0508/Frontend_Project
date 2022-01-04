@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { Pagination } from '../model/Pagination'
-import { Cart } from '../model/Cart'
 import { orderProduct } from '../model/orderProduct'
 import { dataCart } from '../page/cart/page-cart/PageCart'
 

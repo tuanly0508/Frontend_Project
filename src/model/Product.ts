@@ -3,4 +3,6 @@ export interface Product{
     nameProduct: string
     price: number
     image: string
+    size?: number
+    page?: number
  }

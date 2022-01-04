@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { FaTimes } from 'react-icons/fa';
 import { Product } from '../../model/Product'
 interface State {
-    nameButton: string,
     nameErr: string,
     priceErr: string,
     imageErr: string,
@@ -11,8 +10,6 @@ interface State {
 }
 export interface Props {
     onAdd:  (product: Product) => void
-    // onEdit: Product 
-    onName: string
     onUpdate: Product
     closeModal: (close:Boolean) => void
 }
@@ -20,7 +17,7 @@ export interface Props {
 export function Form(props: Props) {
     //state
     const [state, setState] = useState<State>({
-        nameButton: 'Add',nameErr: '', priceErr: '', imageErr: '',
+        nameErr: '', priceErr: '', imageErr: '',
         data: props.onUpdate,
         closeModal: false
     });
@@ -28,7 +25,6 @@ export function Form(props: Props) {
     //validation
     const formValidation = () => {
         let isValid = true
-        
         if(state.data.nameProduct.length<5) {
             isValid = false
             setState({...state,nameErr: 'Name product is too short'})
@@ -50,15 +46,11 @@ export function Form(props: Props) {
 
     //on submit
     const handleSubmit = (e: any) => {
-        let name = state.nameButton
         e.preventDefault()
         let isValid = formValidation()
         if(isValid === true) {
-            console.log(state.data);
-            
             props.onAdd(state.data)
         }
-        setState({...state,nameButton: name})
     }
 
     return (

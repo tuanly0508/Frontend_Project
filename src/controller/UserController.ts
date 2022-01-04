@@ -1,17 +1,17 @@
 import axios from 'axios'
-import { buyUser } from '../model/BuyUser'
+import { User } from '../model/User'
 
 class UserController {
 
     //update user
-    async update(buyUser: buyUser): Promise<buyUser> {
+    async update(buyUser: User): Promise<User> {
         return axios.put(`http://localhost:8000/users/update`,buyUser).then(res => {
             return res.data
         })
     }
 
     //get detail user
-    async getUserDetail(idUser: string): Promise<buyUser[]> {
+    async getUserDetail(idUser: string): Promise<User[]> {
         return axios.get(`http://localhost:8000/users/detail/${idUser}`).then(res => {
             return res.data
         })

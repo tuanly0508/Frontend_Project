@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Cart } from '../../model/Cart'
 import { Product } from '../../model/Product'
 import { v4 as uuid } from 'uuid';
 import { orderProduct } from '../../model/orderProduct';
-import moment from 'moment';
 export interface Props {
-    //onAddLocal: (products:Product) => void
     onAddDatabase: (orderProduct: orderProduct) => void
     product: Product
 }
@@ -15,7 +12,7 @@ interface State {
 }
 
 export function ProductDetail(props:Props) {
-    const [state, setState] = useState<State>({
+    const [state] = useState<State>({
         orderProduct: {idOrder: uuid(), idProduct: props.product.idProduct, quantity: 1,price:props.product.price}
     })
     

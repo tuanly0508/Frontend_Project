@@ -1,6 +1,7 @@
 export interface Pagination {
-    page: number,
     size: number,
+    page: number,
     search?: string,
-    sort?: string,
+    field?: string,
+    sort?: string
 }
