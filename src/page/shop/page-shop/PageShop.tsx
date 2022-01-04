@@ -11,7 +11,7 @@ import { orderProduct } from '../../../model/orderProduct';
 
 interface State {
     search: string,
-    field: string
+    field: string,
     list: Product[],
     countPage: number,
     perPage: number,

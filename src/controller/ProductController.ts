@@ -21,9 +21,7 @@ class ProductController {
     //update product
     async update(product: Product, idProduct: string) {
         return axios.put(`http://localhost:8000/products/update/${idProduct}`,product).then(res => {
-            let list : Product[] = res.data.dataProduct
-            let pageCount: number = res.data.pageCount
-            return {list, pageCount}
+            return res.data
         })
     }
 

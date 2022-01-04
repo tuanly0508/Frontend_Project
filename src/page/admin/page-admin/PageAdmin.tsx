@@ -11,6 +11,7 @@ import { FaPlusCircle } from 'react-icons/fa';
 interface State {
     dataProduct: Product[],
     page: number,
+    field: string,
     countPage: number,
     search: string,
     sort: string,
@@ -23,6 +24,7 @@ export function PageAdmin() {
     const [state, setState] = useState<State>({
         dataProduct: [],
         page: 1,
+        field:'',
         countPage: 1,
         search: '',
         sort: '',
@@ -37,10 +39,10 @@ export function PageAdmin() {
     
     //get list
     useEffect(() => {
-        productController.pagination({size:8,page:state.page}).then( res => {
+        productController.pagination({search:state.search,field:state.field,sort: state.sort,page:state.page,size:8}).then( res => {
             setState({...state, dataProduct: res.list, countPage: Math.ceil(res.pageCount)})
         })
-    },[state.page])
+    },[state.page,state.search,state.field,state.sort,state.page,8])
 
     //delete
     const onDelete = (idProduct: string) => { 
@@ -58,7 +60,7 @@ export function PageAdmin() {
             })
         }else {
             productController.update(dataAdd,dataAdd.idProduct).then(res => {     
-                setState({...state, dataProduct: res.list,countPage: Math.ceil(res.pageCount) ,openModal:false})
+                setState({...state, dataProduct: res,openModal:false})
             })
         }
     }
