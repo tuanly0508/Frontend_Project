@@ -20,7 +20,7 @@ export default function ItemCart(props: Props) {
         let plus:any = state.quantity
         plus = plus + 1
         setState({...state,quantity: plus})
-        props.onPlusQuantity(props.cart.idOrder,plus,'1')
+        props.onPlusQuantity(props.cart.idProduct,plus,'1')
     }
 
     //update minus quantity database
@@ -29,7 +29,7 @@ export default function ItemCart(props: Props) {
             let minus:any = state.quantity
             minus = minus - 1
             setState({...state,quantity:minus})
-            props.onPlusQuantity(props.cart.idOrder,minus,'1')
+            props.onPlusQuantity(props.cart.idProduct,minus,'1')
         }else setState({...state,quantity:1})
     }
 

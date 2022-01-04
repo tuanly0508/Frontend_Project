@@ -2,17 +2,16 @@ import axios from 'axios'
 import { buyUser } from '../model/BuyUser'
 import { dataCartOrder } from '../model/DataCartOrder'
 import { orderProduct } from '../model/orderProduct'
-import { orderTemp } from '../model/orderTemp'
+import { orderTemp, OrderWithUser } from '../model/orderTemp'
+import { Pagination } from '../model/Pagination'
 
 class OrderController {
     //get item order
-    async getOrder(idUser: string) {
-        return await axios.get(`http://localhost:8000/orders/${idUser}`).then(res => {
-            
-            // let dataUser:buyUser = res.data
-            // let dataCart:orderProduct[] = res.data.orderProduct
-            // let timeAt = res.data.timeAt
-            return res.data
+    async getOrder(idUser: string, pagination: Pagination) {
+        return await axios.post(`http://localhost:8000/orders/${idUser}`,pagination).then(res => {
+            let list : OrderWithUser[] = res.data.list
+            let pageCount: number = res.data.pageCount
+            return {list,pageCount}
         })
     }
 

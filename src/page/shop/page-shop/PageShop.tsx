@@ -49,7 +49,7 @@ export default function PageShop() {
     
     //get list
     useEffect(() => {
-        list({page:state.page,size:8,search:state.search,sort:state.sort})
+        list({page:state.page,size:4,search:state.search,sort:state.sort})
     },[state.page,state.search,state.sort])
 
     const list = (pagination: Pagination) => {

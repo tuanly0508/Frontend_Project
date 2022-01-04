@@ -53,8 +53,8 @@ export function PageCart() {
     }
     
     //update plus and minus quantity database
-    const onPlusQuantity = (idCart:string, quantity:number, idUser: string) => {
-        cartController.updateCart(idCart,idUser,quantity).then(res => {
+    const onPlusQuantity = (idProduct:string, quantity:number, idUser: string) => {
+        cartController.updateCart(idProduct,idUser,quantity).then(res => {
             setState({...state,dataCart:res.dataCart,totalPrice: res.totalPrice})
         })
     }

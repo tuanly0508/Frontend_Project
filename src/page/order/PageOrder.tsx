@@ -5,30 +5,38 @@ import { Link } from 'react-router-dom'
 import { orderController } from '../../controller/OrderController';
 import { OrderWithUser } from '../../model/orderTemp';
 import moment from 'moment';
+import ReactPaginate from 'react-paginate';
+import { Pagination } from '../../model/Pagination';
 interface State {
     idUser: string,
     totalPrice: number,
-    data: OrderWithUser[]
+    data: OrderWithUser[],
+    page: number,
+    countPage: number,
 }
 
 export default function PageOrder() {
     const [state, setState] = useState<State>({
         idUser: '1',
         totalPrice: 0,
-        data: []
+        data: [],
+        page:1,
+        countPage: 1
     })
-    
-    const getItemOrder = () => {
-        orderController.getOrder('1').then(res => {
-            setState({...state,data: res})
-        })
+
+    //pagination
+    const changePage = ({selected}:any) => { 
+        setState({...state, page: selected+1})
     }
-    
+
     useEffect(() => {
-        getItemOrder()
-    },[])
+        orderController.getOrder('1',{page:state.page,size:1}).then(res => {
+            setState({...state,data: res.list, countPage: Math.ceil(res.pageCount)})
+        })
+    },[state.page])
 
     const displayItem = state.data.map((item) => {
+        let y = 0
         return (
             <table className='table-body'>
                 <thead>
@@ -41,12 +49,13 @@ export default function PageOrder() {
                             </Link>
                         </th>
                         <th className='right'>
-                            <div><p>{moment(item.timeAt).format('h:mm DD-MM-YYYY')} | <span>Pending</span></p></div>
+                            <div><p>{moment(item.timeAt).format('HH:mm DD-MM-YYYY')} | <span>Pending</span></p></div>
                             <div><p>{item.user.nameUser}, {item.user.phone}, {item.user.email}, {item.user.address}</p></div>
                         </th>
                     </tr>
                 </thead>
                 {item.orderProduct.map((item) => {
+                    y += item.price
                     return (<>
                         <tbody >
                             <tr >
@@ -69,12 +78,12 @@ export default function PageOrder() {
                 <tfoot>
                     <tr>
                         <td className='order-total'>
-                            <td><p>Estimated cost: <span>{} $</span></p></td>
+                            <td><p>Estimated cost: <span>{y.toPrecision(3)} $</span></p></td>
                             <td><p>Shipping fee: <span>5 $</span></p></td>
                         </td>
                         <th></th>
                         <td className='order-total-2'>
-                            <td><p >Total: <span>{ +5} $</span></p></td>
+                            <td><p >Total: <span>{ (y+5).toPrecision(3)} $</span></p></td>
                         </td>
                     </tr>
                 </tfoot>
@@ -85,16 +94,29 @@ export default function PageOrder() {
     return (
         <>
             {state.data.length > 0 ? 
-                <div className='container-order'>
-                    <div className='content'>
-                        <div className='content-order-top' >
-                            <h2>ORDER LIST</h2>
-                        </div>
-                        <div className='content-body'>
-                            {displayItem}
+                <>
+                    <div className='container-order'>
+                        <div className='content'>
+                            <div className='content-order-top' >
+                                <h2>ORDER LIST</h2>
+                            </div>
+                            <div className='content-body'>
+                                {displayItem}
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <ReactPaginate 
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        pageCount= {state.countPage}
+                        onPageChange = {changePage}
+                        containerClassName='paginationBtn'
+                        previousClassName='previousBtn'
+                        nextLinkClassName='nextBtn'
+                        disabledClassName='paginationDisable'
+                        activeClassName='paginationActive'
+                    />
+                </>
             : 
                 <div className='cart-empty'>
                     <div className='icon-empty'>
