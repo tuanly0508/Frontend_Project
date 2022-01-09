@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { orderProduct } from '../model/orderProduct'
 import { dataCart } from '../page/cart/page-cart/PageCart'
+import { AuthAxios } from './AuthAxios'
 
 class CartController {
 
@@ -13,7 +14,7 @@ class CartController {
 
     //get item cart
     async getItemCart(idUser: string) {
-        return await axios.get(`http://localhost:8000/carts/${idUser}`).then(res => {
+        return AuthAxios.get(`http://localhost:8000/carts/${idUser}`).then(res => {
             let dataCart: dataCart[] = res.data.dataCart
             let totalPrice: number = res.data.totalPrice
             return {dataCart,totalPrice}
@@ -22,7 +23,7 @@ class CartController {
 
     //update item cart
     async updateCart(idOrder: string,idUser: string,quantity:number) {
-        return axios.put(`http://localhost:8000/carts/update/${idOrder}/${idUser}/${quantity}`).then(res => {
+        return AuthAxios.put(`http://localhost:8000/carts/update/${idOrder}/${idUser}/${quantity}`).then(res => {
             let dataCart: dataCart[] = res.data.dataCart
             let totalPrice: number = res.data.totalPrice
             return {dataCart,totalPrice}

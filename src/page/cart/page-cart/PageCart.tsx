@@ -1,11 +1,13 @@
-import React, {useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import PageCheckout from '../../check-out/PageCheckout'
 import ItemCart from '../ItemCart'
 import './PageCart.css'
 import {FaCartPlus} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { cartController } from '../../../controller/CartController'
-interface State {
+import { cartController} from '../../../controller/CartController'
+import { CartContext } from '../../../component/contexts/CartContext'
+
+type State = {
     showPage: boolean,
     dataCart: dataCart[],
     totalPrice: number
@@ -27,22 +29,26 @@ export function PageCart() {
         dataCart: [],
         totalPrice: 0
     })
+
+    const cartContext = useContext(CartContext)
     
     //useEffect
     useEffect(() => {
-        getItemCart()
+        getCart()
     },[])
 
     //get item cart
-    const getItemCart = () => {
-        cartController.getItemCart('1').then(res => { 
+    const getCart = () => {
+        cartController.getItemCart('1').then(res => {
             setState({...state,dataCart: res.dataCart,totalPrice: res.totalPrice})
+            cartContext.changeQuantity(res.dataCart.length)
         })
     }
     
     //delete item cart database
     const onDelete = (idProduct:string) => {
         cartController.deleteCart(idProduct,'1').then(res => {
+            cartContext.changeQuantity(res.length)
             setState({...state,dataCart: res})
         })
     }
@@ -50,6 +56,7 @@ export function PageCart() {
     //update plus and minus quantity database
     const onPlusQuantity = (idProduct:string, quantity:number, idUser: string) => {
         cartController.updateCart(idProduct,idUser,quantity).then(res => {
+            cartContext.changeQuantity(res.dataCart.length)
             setState({...state,dataCart:res.dataCart,totalPrice: res.totalPrice})
         })
     }

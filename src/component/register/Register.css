@@ -1,0 +1,115 @@
+.container-register .content{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+.container-register .shadow-box{
+    background: white;
+}
+.container-register .shadow-box{
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.container-register .signUp-wrapper .company-details {
+    background: url(https://static-01.daraz.pk/p/977bdf73210d97c75e306e6cf5612983.jpg);
+    background-size: cover;
+    position:relative;
+}
+.container-register .signUp-wrapper .company-details:before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%,rgba(0,0,0,0) 100%);
+}
+.container-register .signUp-wrapper .company-details .wrapper-1{
+    position: relative;
+    padding-bottom: 10px;
+    padding-top: 22px;
+}
+.container-register .signUp-wrapper .company-details .logo {
+    padding: 0 20px;
+    width: 20%;
+    margin: 0 auto;
+}
+.container-register .signUp-wrapper .company-details .logo .icon-food {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/182774/food.png);
+    background-size:contain ;
+    background-repeat: no-repeat;
+    width: 38px;
+    height: 38px;
+    margin: 0 auto;
+}
+.container-register .signUp-wrapper .company-details .title {
+    padding: 20px;
+    width: 74%;
+    margin: 0 auto;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+    font-size: 2em;
+    text-shadow: 1px 1px #4b4a4a;
+    text-align: center;
+}
+.container-register .signUp-wrapper .company-details .slogan {
+   display: none;
+}
+.container-register .signUp-wrapper .signUp-form .wrapper-2{
+    padding: 14px 20px;
+    margin: 30px 80px;
+    position: relative;
+}
+.container-register .signUp-wrapper .signUp-form .wrapper-2 .icon-regis{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    color: #555555;
+}.container-register .signUp-wrapper .signUp-form .wrapper-2 .icon-regis:hover{
+    color: tomato;
+    cursor: pointer;
+}
+.container-register .signUp-wrapper .signUp-form .form-title{
+    font-size: 1.5em;
+    color:  #555555;
+    padding: 5px;
+    text-align: center;
+}
+.container-register .signUp-wrapper .signUp-form .form .content-item{
+    text-transform: uppercase;
+    color: #A19F9C;
+    font-size: 0.7em;
+    margin-top: 35px;
+}
+.container-register .signUp-wrapper .signUp-form .form .content-item input{
+    border: 1px solid silver;
+}
+.container-register .signUp-wrapper .signUp-form .signUp {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    font-size: 1em;
+    text-transform: capitalize;
+    margin-top: 49px;
+    border-radius: 5px;
+}
+.container-register .signUp-wrapper .signUp-form .wrapper-2 form .btn-register{
+    border: 1px solid silver;
+    padding: 15px 20px 15px 20px;
+    margin-top: 30px;
+    cursor: pointer;
+    text-align: center;
+}
+.container-register input::placeholder {
+    color: #575757;
+}
+.signUp-wrapper .company-details,.signUp-wrapper .signUp-form {
+    width: 50%;
+}
+.signUp-wrapper {
+    display: flex;
+}

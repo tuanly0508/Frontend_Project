@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { orderTemp, OrderWithUser } from '../model/orderTemp'
 import { Pagination } from '../model/Pagination'
+import { AuthAxios } from './AuthAxios'
 
 class OrderController {
     //get item order
     async getOrder(idUser: string, pagination: Pagination) {
-        return await axios.post(`http://localhost:8000/orders/${idUser}`,pagination).then(res => {
+        return await AuthAxios.post(`http://localhost:8000/orders/${idUser}`,pagination).then(res => {
             let list : OrderWithUser[] = res.data.list
             let pageCount: number = res.data.pageCount
             return {list,pageCount}

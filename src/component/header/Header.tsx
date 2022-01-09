@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import './Header.css'
 import {FaFacebookSquare,FaTwitterSquare,FaInstagramSquare,FaHouseUser, FaSearch, FaShoppingCart, FaBoxes, FaCartArrowDown} from 'react-icons/fa'
 import { Link } from "react-router-dom";
+import {UserContext} from '../contexts/UserContext'
+import { CartContext } from '../contexts/CartContext';
 
-export default function Header() {
+export function Header() {
+
+    const userContext = useContext(UserContext)
+    const cartContext = useContext(CartContext)
+    
+    const onLogout = () => {
+        if(userContext.status==="Logout") {
+            userContext.changeStatus('Login')
+        }
+    }
+    
     return (
-        
         <div className='container'>
             <div className='content-top'>
                 <div className='social'>
@@ -71,7 +82,7 @@ export default function Header() {
                     </div>
                     <div className='right'>
                         <li>
-                            <i className='icon'><FaShoppingCart/>
+                            <i className='icon'><FaShoppingCart/><div className='quantity'>{cartContext.quantity}</div>
                                 <div className='order-list'>
                                     <Link className='link' to="/checkout/completed"><i><FaBoxes/></i><p>Order</p></Link>
                                     <Link className='link' to="/checkout/cart"><i><FaCartArrowDown/></i><p>Cart</p></Link>
@@ -79,10 +90,10 @@ export default function Header() {
                             </i>
                         </li>
                         <li>
-                            <Link className='link' to="">Login</Link>
+                            <Link className='link' to="/register"><p onClick={onLogout} >{userContext.status}</p> </Link>
                         </li>
                         <li>
-                            <Link className='link' to="">Register</Link>
+                            <p>{userContext.user.nameUser}</p>
                         </li>
                     </div>
                 </div>

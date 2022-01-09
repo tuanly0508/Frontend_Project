@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react'
+import React, { useContext, useEffect, useState }  from 'react'
 import { ProductDetail } from '../ProductDetail';
 import './PageShop.css'
 import { Link } from 'react-router-dom';
@@ -8,7 +8,9 @@ import { Product } from '../../../model/Product';
 import { productController } from '../../../controller/ProductController';
 import { cartController } from '../../../controller/CartController';
 import { orderProduct } from '../../../model/orderProduct';
-
+import { userController } from '../../../controller/UserController';
+import { UserContext } from '../../../component/contexts/UserContext';
+import { CartContext } from '../../../component/contexts/CartContext';
 interface State {
     search: string,
     field: string,
@@ -30,11 +32,15 @@ export default function PageShop() {
         perPage: 0,
         page: 1,
         sort: '',
-        desc: '',
+        desc: ''
     })
+    
+    const cartContext = useContext(CartContext)
+    const {changeUser} = useContext(UserContext)
 
     const onAddDatabase = (order: orderProduct) => {      
         cartController.addCart(order) 
+        cartContext.changeQuantity(cartContext.quantity+1)
     }
 
     //pagination
@@ -49,8 +55,16 @@ export default function PageShop() {
     
     //get list
     useEffect(() => {
-        productController.pagination({search:state.search,field:state.field,sort: state.sort,page:state.page,size:8}).then( res => {
-            setState({...state, list: res.list, countPage: Math.ceil(res.pageCount)})
+        userController.getMe().then(res => {
+            changeUser(res)
+        }).then(res =>{
+            productController.pagination({search:state.search,field:state.field,sort: state.sort,page:state.page,size:8}).then( res => {
+                setState({...state, list: res.list, countPage: Math.ceil(res.pageCount)})
+            })
+        }).then( res => {
+            cartController.getItemCart('1').then(res => {
+                cartContext.changeQuantity(res.dataCart.length)
+            })
         })
     },[state.page,state.search,state.field,state.sort,state.page,8])
     

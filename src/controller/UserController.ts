@@ -1,7 +1,15 @@
 import axios from 'axios'
 import { User } from '../model/User'
-
+import { AuthAxios } from './AuthAxios'
 class UserController {
+
+    async login(email: string,pass:string){
+        return await axios.post(`http://localhost:8000/users/login`,{email,pass}).then(res => {
+            localStorage.setItem('accessToken', res.data.accessToken)
+            AuthAxios.defaults.headers.common['authorization'] = res.data.accessToken
+            return res.data
+        })
+    }
 
     //update user
     async update(buyUser: User): Promise<User> {
@@ -14,6 +22,12 @@ class UserController {
     async getUserDetail(idUser: string): Promise<User[]> {
         return axios.get(`http://localhost:8000/users/detail/${idUser}`).then(res => {
             return res.data
+        })
+    }
+
+    async getMe() {
+        return AuthAxios.get(`http://localhost:8000/users/getMe`).then(res => {
+            return res.data[0]
         })
     }
 
