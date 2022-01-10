@@ -25,7 +25,7 @@ class UserController {
         })
     }
 
-    async getMe() {
+    async getMe():Promise<User> {
         return AuthAxios.get(`http://localhost:8000/users/getMe`).then(res => {
             return res.data[0]
         })

@@ -6,6 +6,8 @@ import {FaCartPlus} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { cartController} from '../../../controller/CartController'
 import { CartContext } from '../../../component/contexts/CartContext'
+import { userController } from '../../../controller/UserController'
+import { UserContext } from '../../../component/contexts/UserContext'
 
 type State = {
     showPage: boolean,
@@ -23,39 +25,35 @@ export interface dataCart {
 }
 
 export function PageCart() {
+    const cartContext = useContext(CartContext)
+    const userContext = useContext(UserContext)
+    
     //state
     const [state, setState] = useState<State>({
         showPage: false,
-        dataCart: [],
-        totalPrice: 0
+        dataCart: cartContext.dataCart,
+        totalPrice: cartContext.totalPrice
     })
 
-    const cartContext = useContext(CartContext)
-    
-    //useEffect
     useEffect(() => {
-        getCart()
-    },[])
-
-    //get item cart
-    const getCart = () => {
-        cartController.getItemCart('1').then(res => {
-            setState({...state,dataCart: res.dataCart,totalPrice: res.totalPrice})
+        userContext.getInfoUser()
+        cartController.getItemCart().then(res => {
             cartContext.changeQuantity(res.dataCart.length)
+            setState({...state,dataCart: res.dataCart,totalPrice: res.totalPrice})
         })
-    }
+    },[])
     
     //delete item cart database
-    const onDelete = (idProduct:string) => {
-        cartController.deleteCart(idProduct,'1').then(res => {
+    const onDelete = (idProduct:string,idOrder: string) => {
+        cartController.deleteCart(idProduct,'1',idOrder).then(res => {
             cartContext.changeQuantity(res.length)
             setState({...state,dataCart: res})
         })
     }
     
     //update plus and minus quantity database
-    const onPlusQuantity = (idProduct:string, quantity:number, idUser: string) => {
-        cartController.updateCart(idProduct,idUser,quantity).then(res => {
+    const onPlusQuantity = (idProduct:string, quantity:number, idUser: string,idOrder:string) => {
+        cartController.updateCart(idProduct,idUser,quantity,idOrder).then(res => {
             cartContext.changeQuantity(res.dataCart.length)
             setState({...state,dataCart:res.dataCart,totalPrice: res.totalPrice})
         })

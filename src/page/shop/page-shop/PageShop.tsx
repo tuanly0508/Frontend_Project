@@ -23,6 +23,9 @@ interface State {
 }
 
 export default function PageShop() {
+    const cartContext = useContext(CartContext)
+    const userContext = useContext(UserContext)
+    
     //state
     const [state, setState] = useState<State>({
         search: '',
@@ -34,13 +37,10 @@ export default function PageShop() {
         sort: '',
         desc: ''
     })
-    
-    const cartContext = useContext(CartContext)
-    const {changeUser} = useContext(UserContext)
 
     const onAddDatabase = (order: orderProduct) => {      
-        cartController.addCart(order) 
         cartContext.changeQuantity(cartContext.quantity+1)
+        cartController.addCart(order)
     }
 
     //pagination
@@ -53,20 +53,17 @@ export default function PageShop() {
         )
     })
     
+    useEffect(() => {
+        userContext.getInfoUser()
+        cartContext.getInfoCart()
+    },[])
+    
     //get list
     useEffect(() => {
-        userController.getMe().then(res => {
-            changeUser(res)
-        }).then(res =>{
-            productController.pagination({search:state.search,field:state.field,sort: state.sort,page:state.page,size:8}).then( res => {
-                setState({...state, list: res.list, countPage: Math.ceil(res.pageCount)})
-            })
-        }).then( res => {
-            cartController.getItemCart('1').then(res => {
-                cartContext.changeQuantity(res.dataCart.length)
-            })
+        productController.pagination({search:state.search,field:state.field,sort: state.sort,page:state.page,size:8}).then( res => {
+            setState({...state, list: res.list, countPage: Math.ceil(res.pageCount)})
         })
-    },[state.page,state.search,state.field,state.sort,state.page,8])
+    },[state.page,state.search,state.field,state.sort])
     
     return (
         <div className='container-page-shop'>

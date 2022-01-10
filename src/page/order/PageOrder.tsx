@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './PageOrder.css'
 import {FaCartPlus, FaShoppingCart} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
@@ -6,6 +6,8 @@ import { orderController } from '../../controller/OrderController';
 import { OrderWithUser } from '../../model/orderTemp';
 import moment from 'moment';
 import ReactPaginate from 'react-paginate';
+import { CartContext } from '../../component/contexts/CartContext';
+import { UserContext } from '../../component/contexts/UserContext';
 interface State {
     idUser: string,
     totalPrice: number,
@@ -27,6 +29,14 @@ export default function PageOrder() {
     const changePage = ({selected}:any) => { 
         setState({...state, page: selected+1})
     }
+
+    const cartContext = useContext(CartContext)
+    const userContext = useContext(UserContext)
+
+    useEffect(() => {
+        userContext.getInfoUser()
+        cartContext.getInfoCart()
+    },[])
 
     useEffect(() => {
         orderController.getOrder('1',{page:state.page,size:1}).then(res => {

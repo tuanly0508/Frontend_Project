@@ -3,8 +3,8 @@ import {FaTrash, FaMinusCircle, FaPlusCircle} from 'react-icons/fa'
 
 export interface Props {
     cart: {idOrder:string,idUser: string,idProduct: string,image: string,price:number,nameProduct:string, quantity: number},
-    onDelete: (idProduct:string) => void,
-    onPlusQuantity: (idCart:string, quantity: number,idUser:string) => void,
+    onDelete: (idProduct:string,idOrder:string) => void,
+    onPlusQuantity: (idCart:string, quantity: number,idUser:string,idOrder:string) => void,
 }
 interface State {
     quantity: number,
@@ -20,7 +20,7 @@ export default function ItemCart(props: Props) {
         let plus:any = state.quantity
         plus = plus + 1
         setState({...state,quantity: plus})
-        props.onPlusQuantity(props.cart.idProduct,plus,'1')
+        props.onPlusQuantity(props.cart.idProduct,plus,'1',props.cart.idOrder)
     }
 
     //update minus quantity database
@@ -29,7 +29,7 @@ export default function ItemCart(props: Props) {
             let minus:any = state.quantity
             minus = minus - 1
             setState({...state,quantity:minus})
-            props.onPlusQuantity(props.cart.idProduct,minus,'1')
+            props.onPlusQuantity(props.cart.idProduct,minus,'1',props.cart.idOrder)
         }else setState({...state,quantity:1})
     }
 
@@ -43,7 +43,7 @@ export default function ItemCart(props: Props) {
                 <i onClick={onPlusQuantity} ><FaPlusCircle/></i>
             </td>
             <td className='price'>$ {(state.quantity * props.cart.price).toPrecision(3)}</td>
-            <td className='function'><FaTrash onClick={() => props.onDelete(props.cart.idProduct) } /></td>
+            <td className='function'><FaTrash onClick={() => props.onDelete(props.cart.idProduct,props.cart.idOrder) } /></td>
         </tr>
     )
 }

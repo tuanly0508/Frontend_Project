@@ -4,6 +4,7 @@ import './Register.css'
 import {FaShareSquare} from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../contexts/UserContext'
+import { CartContext } from '../contexts/CartContext'
 
 interface State {
     email:string
@@ -15,6 +16,7 @@ export default function Register() {
     let navigate =useNavigate()
     
     const {status} = useContext(UserContext)
+    const cartContext = useContext(CartContext)
 
     const [state, setState] = useState<State>({
         email:'',

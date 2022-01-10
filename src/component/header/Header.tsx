@@ -13,6 +13,7 @@ export function Header() {
     const onLogout = () => {
         if(userContext.status==="Logout") {
             userContext.changeStatus('Login')
+            cartContext.changeQuantity(0)
         }
     }
     

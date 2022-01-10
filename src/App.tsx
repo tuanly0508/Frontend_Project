@@ -16,8 +16,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <div>
-        <CartContextProvider>
-          <UserContextProvider>
+        <UserContextProvider>
+          <CartContextProvider>
             <Header />     
               <Routes>
                 <Route path="/" element={<HomePage/>} />
@@ -29,8 +29,8 @@ export default function App() {
                 <Route path="/register" element={<Register/>} />
               </Routes>
             {/* <Footer/> */}
-          </UserContextProvider>
-        </CartContextProvider>
+          </CartContextProvider>
+        </UserContextProvider>
       </div>
     </BrowserRouter>
   )
